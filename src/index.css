@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.songContainer {
+  display: flex;
+  background-color: #eeeee4;
+  height: 10vh;
+  width: 40vw;
+  margin-top: 5;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 15px;
+
+}
+
+/* .container {
+  position: absolute; 
+   width: 50%;
+ 
+  /* transform: translate(-50%,-50%); */
+
+
+/* .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+} */
+
+/* .content{
+  position: absolute;
+  /* transform: translate(-50%,-50%); */
+  /* text-align: center;
+
+
+.searchImage {
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-bottom: 40px;
+  width: 250px;
+  height: 250px;
+} */ */
+
+/* .container:hover .overlay {
+  opacity: 0.8;
+} */ */
+
+.selected {
+  background-color: blue;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(114, 113, 113);
+  border-radius: 10px;
+  height: 200px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.category-btn:hover {
+  background-color: #172b40 !important;
+  color: white !important;
+}
+
+.category-btn:hover span {
+  color: white !important;
+}
+
+.react-player {
+  height: 77vh !important;
+  width: 100% !important;
+}
+
+.search-bar {
+  border: none;
+  outline: none;
+  width: 350px;
+}
+
+.category-btn {
+  font-weight: bold !important;
+  text-transform: capitalize;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  border: none;
+
+  padding: 7px 15px;
+  margin: 15px 0px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 900px) {
+  .category-btn {
+    margin: 10px;
+  }
+}
+
+@media screen and (max-width:800px) {
+  .copyright {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .scroll-horizontal {
+    overflow: auto !important;
+  }
+
+  .react-player {
+    height: 45vh !important;
+  }
+
+  .search-bar {
+    width: 200px;
+  }
+}
