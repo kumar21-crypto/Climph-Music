@@ -66,6 +66,15 @@ a {
   background-color: blue;
 }
 
+.swiperslide {
+  text-align: center;
+  font-size: 18px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 ::-webkit-scrollbar {
   width: 0px;
   height: 5px;

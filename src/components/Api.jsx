@@ -7,6 +7,8 @@ const BASE_ARTIST_DETAIL_URL = "https://saavn.me/artists?id=";
 const BASE_PLAYLIST_DETAIL_URL = "https://saavn.me/playlists?id=";
 const BASE_SEARCH_ALL_URL = "https://saavn.me/search/all?query=";
 const BASE_SONG_DETAIL_URL = "https://saavn.me/songs?link=";
+const BASE_ALBUM_ID = "&cc=in&albumid=";
+const BASE_PLAYLIST_ID = "&cc=in&listid=";
 
 
 export const endpoints = {
@@ -32,6 +34,18 @@ export const fetchDataFromApi = async (endpoint) => {
     const { data } = await axios.get(`${BASE_URL}${endpoint}${API_STRING}`);
     return data;
 }
+
+export const fetchAlbumData = async (id) => {
+   const { data } = await axios.get(`${BASE_URL}${endpoints['albumDetails']}${BASE_ALBUM_ID}${id}${API_STRING}`);
+    return data;
+}
+
+export const fetchPlaylistData = async (id) => {
+   const { data } = await axios.get(`${BASE_URL}${endpoints['playlistDetails']}${BASE_PLAYLIST_ID}${id}${API_STRING}`);
+    return data;
+}
+
+
 
 export const fetchDetailDataFromApi = async (link) => {
 

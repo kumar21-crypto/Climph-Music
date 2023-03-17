@@ -1,6 +1,7 @@
 import React, { useState, createContext, useEffect, Component, useContext, useReducer } from 'react'
 import { BsHeart } from 'react-icons/bs'
 import { RxDotsHorizontal } from 'react-icons/rx'
+import { useSelector } from 'react-redux';
 
 
 export const MiniPlayerContext = createContext();
@@ -13,14 +14,23 @@ const SongCard = ({ song, i }) => {
     const duration = (song?.duration);
     const minute = Math.floor(duration / 60);
     const second = duration - minute * 60;
-    const [selectSong, setselectSong] = useState(0);
+    const [selectSong, setselectSong] = useState(false);
     const {setshowMiniPlayer} = useState('');
+
+    const data = useSelector((state) => {
+        return state.player;
+    
+      })
+
+     
+      
 
     return (
 
 
 
-        <div className='flex bg-[black] h-[10vh] w-[90%] items-center rounded-xl cursor-pointer hover:opacity-70'
+        <div className={'songcard flex bg-[black] h-[10vh] w-[90%] items-center rounded-xl cursor-pointer hover:opacity-70 ' }
+    
         >
 
             <div className='h-full w-[10%] flex items-center justify-center'>

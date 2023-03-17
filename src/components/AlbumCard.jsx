@@ -5,20 +5,20 @@ import { useNavigate } from 'react-router-dom';
 
 const AlbumCard = ({ album }) => {
 
-  const [color, setcolor] = useState("#000");
+
   const navigate = useNavigate();
 
   return (
 
 
-    <div className='flex flex-col justify-center items-center m-2 p-2'>
+    <div className='flex flex-col justify-center items-center m-2 p-2  '>
 
       <div style={{
       }}
         className='flex flex-col justify-center items-center'>
         <img
-          className='w-36 h-36 rounded-3xl shadow-2xl cursor-pointer hover:-translate-y-1
-          hover:scale-110 duration-500 hover:opacity-80'
+          className='w-32 h-32 rounded-3xl shadow-2xl cursor-pointer hover:-translate-y-1
+          hover:scale-110 duration-500 hover:opacity-80 bg-opacity-80  backdrop-blur-sm' 
           src={album?.image}
           loading="lazy"
           onClick={() => {

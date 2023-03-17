@@ -12,8 +12,18 @@ import { AppContext } from './components/ContextApi'
 import AlbumDetail from './Pages/AlbumDetail'
 import Sidebar from './components/Sidebar'
 import SearchResult from './Pages/SearchResult'
+import MiniPlayerCard from './components/MiniPlayerCard'
+import { useDispatch,useSelector } from 'react-redux';
+import BottomMobileNav from './components/BottomNav/BottomMobileNav'
+
 
 const App = () => {
+
+  const data  = useSelector((state) =>{
+    return state.player;
+   
+  })
+
   return (
     <>
     <AppContext>
@@ -29,7 +39,18 @@ const App = () => {
           <Route path='/albumdetail' element={<AlbumDetail />} />
           <Route path='/searchresult' element={<SearchResult />} />
         </Routes>
+        
      </MainContainer>
+     {
+      data.comPlayPause ? " "
+      :
+      <MiniPlayerCard
+      data={data.songlist[data.currentSong]}
+    />
+     }
+     
+     <BottomMobileNav />
+
      {/* <Footer /> */}
       </BrowserRouter>
       </AppContext>

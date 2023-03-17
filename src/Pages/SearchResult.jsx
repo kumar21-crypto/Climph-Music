@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import SongCard from '../AlbumFetch/SongCard';
-import { searchByQuery } from '../components/Api'
+import { searchByQuery, fetchSongDetailDataByLink } from '../components/Api'
 import { BsHeart } from 'react-icons/bs'
 import { RxDotsVertical } from 'react-icons/rx'
 import { HiPlay } from 'react-icons/hi'
 import '../index.css'
 import { Skeleton } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSongsArray, setCurrentSong } from '../components/Slices/PlayerSlice';
 
 const SearchResult = () => {
   const location = useLocation();
   const searchQuery = location?.state?.data;
   const [searchQueryResults, setsearchQueryResults] = useState("");
   const [loading, setloading] = useState(false);
+  const [songData, setsongData] = useState('');
+  const dispatch = useDispatch();
+  let songs = [];
+  const data = useSelector((state) => {
+    return state.player;
+
+  })
 
 
   useEffect(() => {
@@ -20,8 +29,14 @@ const SearchResult = () => {
       fetchQuery(searchQuery);
     }
 
+    searchQueryResults?.songs?.results?.map((item) => {
+      fetchSongDetailDataByLink(item?.url).then((res) => {
+        songs.push(res?.data[0]);
+      })
+    })
+    setsongData(songs);
 
-  },[])
+  }, [])
 
   const fetchQuery = (query) => {
     searchByQuery(`${query}`).then((res) => {
@@ -29,6 +44,11 @@ const SearchResult = () => {
       setloading(true);
     })
   }
+
+
+  console.log(songData);
+
+
 
 
   return (
@@ -53,19 +73,19 @@ const SearchResult = () => {
                       {
                         loading ?
 
-                        <img
-                        className='w-[250px] h-[250px] rounded-lg hover:opacity-70 '
-                        src={item?.image[2]?.link}
+                          <img
+                            className='w-[250px] h-[250px] rounded-lg hover:opacity-70 '
+                            src={item?.image[2]?.link}
 
-                      />
+                          />
 
-                      :
+                          :
 
-                      <Skeleton variant='rectangular' height={250} width={250} animation='wave'
-                      />
+                          <Skeleton variant='rectangular' height={250} width={250} animation='wave'
+                          />
 
                       }
-                      
+
 
 
                     </div>
@@ -87,7 +107,7 @@ const SearchResult = () => {
 
         </div>
 
-        <div className='w-[90%] h-[45vh] bg-[#202026] mt-10 rounded-lg'>
+        <div className='w-[90%] h-auto bg-[#202026] mt-10 rounded-lg'>
 
           <span className='text-white pl-7 pt-5 font-bold  w-full flex' >Related Albums</span>
 
@@ -133,14 +153,65 @@ const SearchResult = () => {
 
           <span className='text-white pl-7 pt-5 font-bold  w-full flex' >Related Songs</span>
 
-          <div className='h-full w-full  flex flex-col  items-center mb-3'>
+          <div className='h-full w-full  flex flex-col  items-center mb-3 '>
 
             {
 
-              searchQueryResults?.songs?.results?.map((item, index) => {
+              songData?.map((item, index) => {
 
                 return (
-                  <div className='w-[92%] h-[10vh] bg-[black] rounded-lg mt-3 flex flex-row items-center p-2 '>
+
+                  <div className='w-[92%] h-[10vh] bg-[black] rounded-lg mt-2 flex flex-row items-center p-2 cursor-pointer hover:opacity-70 '
+                  onClick={()=>{
+                    dispatch(setSongsArray(songData));
+                    dispatch(setCurrentSong(index));
+                  }}
+                  >
+
+                    <img
+                      className='w-[80px] h-[80px] rounded-lg '
+                      src={item?.image[1]?.link}
+                    />
+
+                    <div className=' w-[60%] h-full flex flex-col '>
+                      <span className='pl-5 font-medium text-white  truncate'>{item?.name}</span>
+                      <span className='pl-5 text-sm mt-1 text-white  truncate'>{item?.primaryArtists}</span>
+                    </div>
+
+                    <div className='flex flex-row w-[25%] justify-around  '>
+                      <BsHeart className='text-white' />
+                      <RxDotsVertical className='text-white' />
+
+                    </div>
+
+                    </div>
+
+                    )
+
+              })
+
+            }
+
+                  </div>
+
+        </div>
+
+
+        </div>
+
+      </div>
+      )
+}
+
+      export default SearchResult
+
+      {/* <div className='w-[92%] h-[10vh] bg-[black] rounded-lg mt-2 flex flex-row items-center p-2 cursor-pointer hover:opacity-70 '
+                  onClick={()=> {
+                    // dispatch(setSongsArray(searchQueryResults?.songs?.results));
+                    // dispatch(setCurrentSong(index));
+                    // console.log(data.songlist);
+                  }}
+                  >
 
                     <img
                       className='w-[80px] h-[80px] rounded-lg '
@@ -158,22 +229,4 @@ const SearchResult = () => {
                     </div>
 
 
-                  </div>
-                )
-
-              })
-
-            }
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </div>
-  )
-}
-
-export default SearchResult
+                  </div> */}

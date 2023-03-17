@@ -5,6 +5,7 @@ import AlbumCard from '../components/AlbumCard';
 const Artists = ({pick}) => {
 
     const {searchResults } = useContext(Context);
+    
   return (
     <div className='mt-14 bg-[#0a0a0b] w-[100vw] h-full flex flex-col  items-end'>
      <span className='pl-[56px] mt-9  text-xl font-bold text-white flex w-[90vw]'>Top Artists</span>

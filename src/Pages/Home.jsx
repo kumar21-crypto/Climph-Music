@@ -1,42 +1,45 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState,useRef } from 'react'
 import { Context } from '../components/ContextApi'
 import AlbumCard from '../components/AlbumCard';
 import TopPicks from '../AlbumFetch/TopPicks';
-import { motion } from 'framer-motion'
 import ArtistCard from '../components/ArtistCard';
-import { AlbumDetailContext } from './AlbumDetail';
-
-
-// const globalSong = () => {
-
-//     const {searchResults } = useContext(Context);
-
-//     <div  className='grid w-[90vw] grid-cols-autofill p-5'>
-//           {
-//             searchResults?.artist_recos?.map((item) => {
-//               return (
-//                 <AlbumCard
-//                   key={item?.id}
-//                   album={item}
-//                 />
-//               );
-//             })
-//           }
-//         </div>
-// }
-
+import { useDispatch,useSelector } from 'react-redux';
+import HomeCarousel from '../components/HomePart/HomeCarousel';
 
 const Home = ({ children }) => {
 
     const { searchResults } = useContext(Context);
     const { loading } = useContext(Context);
-    const { showMiniPlayer} = useContext(AlbumDetailContext);
+    const [bgcolor, setbgcolor] = useState('');
+    const data  = useSelector((state) =>{
+        return state.player;
+       
+      })
+
+      useEffect(() => {
+
+        
+        
+      }, [])
+
+      const setcolor = (image) => {
+
+        colorjs.prominent(image,{amount:1,format:'hex'}).then((color) =>{
+            console.log(color);
+            setbgcolor(color);
+          })
+
+      }
+      
+    // const { showMiniPlayer} = useContext(AlbumDetailContext);
 
 
     return (
         <div
-            className='w-[100vw] mt-[60px] bg-[#0a0a0b] flex flex-col justify-center items-end'>
+            className='w-[100vw] mt-[1vh] bg-[#0a0a0b] sm:items-center h-auto flex flex-col md:w-[90vw] md:items-center md:ml-[10vw]'>
 
+
+            <HomeCarousel />
             <TopPicks />
 
             {/* top artists */}
@@ -93,15 +96,17 @@ const Home = ({ children }) => {
                 </div>
             </div>
 
-            <div className='fixed w-[90vw] h-[10vh] flex  flex-col items-end   justify-end  bottom-1'>
-                {showMiniPlayer ? <MiniPlayerCard
-                    data={selectSong}
-                />
-                    : ""
+            {/* mini player card */}
 
-                }
+            {/* <div className='fixed w-[90vw] h-[10vh] flex  flex-col items-end   justify-center  bottom-1 '>
+        {data.comPlayPause ? " "
+          :
+          <MiniPlayerCard
+          data={data.songlist[data.currentSong]}
+        />
 
-            </div>
+        }
+      </div> */}
 
         </div>
     );

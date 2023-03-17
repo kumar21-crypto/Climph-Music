@@ -1,43 +1,46 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { categories } from '../components/Constants';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Colors } from '../components/Constants';
 
-const MainContainer = ({children}) => {
-    // const {loading, searchResults } = useContext(Context);
-    // const { selectCategory, setselectCategory, mobileMenu } = useContext(Context);
-
+const MainContainer = ({ children }) => {
+    const [selectcategory, setselectcategory] = useState('Home');
     return (
-        <div  className='flex h-screen w-full'>
+        <div className='flex h-auto w-full overflow-hidden flex-wrap'>
             <motion.div
-            style={{
-                /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-             zIndex:1
-            }}
-             animate={{ width: '200px' }} className='text-white h-screen overflow-x-hidden mt-[60px] fixed left-0 top-0 bg-[#18181d]'>
-            
-                <section className='h-screen text-white w-full'>
+
+                className='text-white h-[84vh] hidden oveflow-hidden w-[10vw] mt-[60px]  fixed left-0 top-0 bg-[#181811d]
+                 md:flex'>
+
+                <section className='h-screen text-white flex md:flex md:flex-col'>
                     {categories.map((category) => {
 
-                        return(
-                          
-                        <NavLink  to={category.path} key={category.id} onClick={()=>{
-                          
-                        }}>
-                          <div className=' flex flex-row mt-6 hover:bg-[#5b7afa] hover:text-white rounded-lg 
-                           items-center p-2 m-1 '>
-                            <div className='ml-2 text-white'>{category.icon}</div>
-                            <div className='ml-2 text-white'>{category.name}</div>
-                            </div>
-                        </NavLink>
-                        
+                        return (
+
+                            <NavLink to={category.path} key={category.id} onClick={() => {
+
+                            }}>
+                                <div className={` flex flex-row mt-6 hover:bg-[#5b7afa] hover:text-white rounded-lg 
+                           items-center p-2 m-1 w-fill ` + (
+                                        category.name === selectcategory ? 'bg-[#5b7afa]' : ' '
+                                    )}
+
+                                    onClick={() => {
+                                        setselectcategory(category.name);
+                                    }}
+                                >
+                                    <div className='ml-2 text-white'>{category.icon}</div>
+                                    <div className='ml-2 text-white md:hidden'>{category.name}</div>
+                                </div>
+                            </NavLink>
+
                         )
 
                     })}
                 </section>
             </motion.div>
-            <main>{children}</main>
+            <main className='flex'>{children}</main>
         </div>
     );
 }

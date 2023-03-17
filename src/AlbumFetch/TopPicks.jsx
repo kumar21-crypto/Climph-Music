@@ -10,12 +10,12 @@ const TopPicks = ({pick}) => {
     const {loading} = useContext(Context);
     
   return (
-    <div className=''>
+    <div className='flex flex-col mt-2 overflow-hidden '>
      
         <h3 className='font-bold  text-xl ml-[4%] text-white'>Top Picks</h3>
      
    
-         <div  className='grid  w-[90vw] grid-cols-autofill p-5'>
+         <div  className='grid  w-[100vw] grid-cols-2 sm:grid-cols-autofill  p-5'>
           {
             searchResults?.new_albums?.map((item) => {
               return (
