@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy": "http://localhost:5173/",
+
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -13,6 +13,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fontsource/roboto": "^4.5.8",
+    "@material-tailwind/react": "^1.4.2",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.11",
     "@reduxjs/toolkit": "^1.9.3",

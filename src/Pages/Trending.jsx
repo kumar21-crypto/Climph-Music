@@ -6,12 +6,12 @@ const Trending = ({pick}) => {
 
     const {searchResults } = useContext(Context);
   return (
-    <div className='mt-14 bg-[#0a0a0b] w-[100vw] h-screen flex flex-col  items-end'>
+    <div className='bg-[#0a0a0b] w-[100vw] h-screen flex flex-col md:w-[85vw] items-center'>
       
-      <span className='pl-[56px] mt-9  text-xl font-bold text-white flex w-[90vw]'>Top Picks</span>
+      <span className='text-white pl-7 pt-5 font-bold md:ml-[3rem] w-full flex' >Top Picks</span>
      
         {/* <div className='grid grid-cols-8 xl:grid-cols-8 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3'> */}
-         <div className='grid w-[90vw] grid-cols-autofill p-5'>
+         <div className='grid md:w-[85vw]  w-[100vw] lg:w-[90vw] grid-cols-2 sm:grid-cols-autofill  p-5'>
           {
             searchResults?.new_trending?.map((item) => {
               return (

@@ -70,13 +70,14 @@ const AlbumDetail = (props) => {
         dispatch(setSongsArray(res?.data?.songs));
       })
 
-      image = playlistData1?.data?.image[2]?.link;
+      
 
       fetchPlaylistData(`${id}`).then((res) => {
         setplaylistData(res);
       })
      
       setalbumType(false);
+      image = playlistData1?.data?.image[2].link;
       
     }
     else if (type === 'song') {
@@ -104,27 +105,27 @@ const AlbumDetail = (props) => {
   return (
 
 
-    <div className='w-[100vw] mt-16 flex flex-col bg-[black] h-full items-center  overflow-hidden justify-center '>
-      <div className='w-[100vw] flex flex-row bg-[black] h-full overflow-hidden justify-end'>
+    <div className='w-[100vw] mt-16  md:mt-6 flex flex-col bg-[black] h-auto  items-center  overflow-hidden justify-center md:w-[85vw] xl:w-[82vw]'>
+      <div className='w-full flex  mb-20 flex-col xl:flex-row bg-[black] h-auto  overflow-hidden items-center'>
 
         {/* left work */}
         <div 
-             className='w-[60vw] h-full  flex flex-col items-center '>
+             className='w-[90%] h-full flex flex-col items-center '>
 
           {/* album work */}
           <div 
           style={{
-            backgroundColor:`${bgcolor}`
+            backgroundColor:'#202026'
           }}
-          className={`w-[90%] h-[40vh] mt-10 rounded-lg flex flex-col`}>
+          className={`w-full h-auto mt-10 rounded-lg flex flex-col`}>
             <span className='text-white pl-7 pt-5 font-bold  w-full flex' >{albumType ? "Album" : "Playlist"}</span>
             <div className='flex w-full p-1 items-center h-full '>
 
-              <div className='w-[30%] h-full  flex items-center justify-center '>
+              <div className=' h-full w-[40%] sm:w-[20%] sm:p-2 flex items-center justify-center '>
                 <img
-                  className='w-[250px] h-[250px] rounded-lg hover:opacity-70 '
+                  className='w-[100px] h-[100px] rounded-lg hover:opacity-70 '
                   src={
-                    image
+                    albumType ? albumData1?.data?.image[2].link : playlistData1?.data?.image[2].link
                   }
 
                 />
@@ -133,11 +134,11 @@ const AlbumDetail = (props) => {
               </div>
 
 
-              <div className='flex flex-col ml-10  w-[72%%] h-full justify-center pl-2'>
-                <span className='text-black text-2xl font-bold'>{albumType ? albumData?.title : playlistData?.title}</span>
-                <span className='text-black text-lg mt-3'>{albumType ? albumData?.header_desc : playlistData?.header_desc}</span>
-                <span className='text-black text-md mt-3'>{albumType ? "" : playlistData?.more_info?.subtitle_desc[1]}</span>
-                <span className='text-black text-md mt-3'>{albumType ? "" : playlistData?.more_info?.subtitle_desc[0]}</span>
+              <div className='flex flex-col ml-10 text-white h-full justify-center w-[60%] pl-2'>
+                <span className=' text-sm font-bold'>{albumType ? albumData?.title : playlistData?.title}</span>
+                <span className=' text-sm mt-3 '>{albumType ? albumData?.header_desc : playlistData?.header_desc}</span>
+                <span className=' text-sm mt-3 '>{albumType ? "" : playlistData?.more_info?.subtitle_desc[1]}</span>
+                <span className=' text-sm mt-3 '>{albumType ? "" : playlistData?.more_info?.subtitle_desc[0]}</span>
               </div>
 
 
@@ -146,7 +147,7 @@ const AlbumDetail = (props) => {
           </div>
 
           {/* songs work  */}
-          <div className='w-[90%] h-auto bg-[#202026] mt-10 rounded-lg flex flex-col pb-5'>
+          <div className='w-full h-auto bg-[#202026] mt-10 rounded-lg flex flex-col pb-5'>
             <span className='text-white pl-7 pt-5  font-bold  w-full flex' >Songs</span>
 
             {
@@ -196,9 +197,9 @@ const AlbumDetail = (props) => {
         </div>
 
         {/* right work */}
-        <div className='w-[30vw] h-full  flex justify-center '>
+        <div className='w-full h-auto  flex justify-center  xl:h-full '>
 
-        <div className='w-[90%] h-auto bg-[#202026] mt-10 rounded-lg flex flex-col items-center'>
+        <div className='w-[90%] h-auto pb-4 bg-[#202026] mt-10  rounded-lg flex flex-col items-center'>
         <span className='text-white pl-7 pt-5  font-bold  w-full flex' >Related Artists</span>
 
         {
@@ -208,7 +209,7 @@ const AlbumDetail = (props) => {
 
             return (
               <div className='mt-4  w-[90%] flex bg-[black] h-[13vh] flex-row items-center rounded-lg'>
-                <div className='w-[100px] h-[100px] flex items-center ml-4'>
+                <div className='w-[80px] h-[80px] flex items-center ml-4'>
                   <img
                   className='p-1 w-full h-full rounded-lg'
                   src={item?.image}
@@ -228,7 +229,7 @@ const AlbumDetail = (props) => {
 
             return (
               <div className='mt-4  w-[90%] flex bg-[black] h-[13vh] flex-row items-center rounded-lg'>
-                <div className='w-[100px] h-[100px] flex items-center ml-4'>
+                <div className='w-[80px] h-[80px] flex items-center ml-4'>
                   <img
                   className='p-1 w-full h-full rounded-lg'
                   src={item?.image}

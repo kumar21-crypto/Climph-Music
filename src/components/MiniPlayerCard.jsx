@@ -5,8 +5,8 @@ import { MiniPlayerContext } from '../AlbumFetch/SongCard';
 import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux';
 import { setCompletePlayPause, setPlayPause, setCurrentSongRef, setCurrentSong } from '../components/Slices/PlayerSlice';
-
-
+import {BsPlayCircleFill,BsPauseCircleFill,BsSkipStartFill,BsSkipEndFill,BsRepeat,BsThreeDotsVertical} from 'react-icons/bs';
+import {GiCancel} from 'react-icons/gi';
 
 const MiniPlayerCard = ({ data, i }) => {
 
@@ -18,7 +18,7 @@ const MiniPlayerCard = ({ data, i }) => {
 
   })
 
-  
+
 
   useEffect(() => {
 
@@ -38,28 +38,30 @@ const MiniPlayerCard = ({ data, i }) => {
 
   return (
     <motion.div
-      className='flex flex-row h-[10vh] w-[100vw] bg-[#1a535e]  rounded-lg   bottom-0 fixed justify-center items-end'>
+      className='flex flex-row h-[8vh] lg:h-[10vh] w-[100vw] bg-[#1a535e]  rounded-lg  bottom-14 md:bottom-0 fixed justify-center items-end'>
 
-      <motion.div className='flex flex-row h-full w-[80vw]  rounded-lg' >
-        <div className=' h-[90%] w-[4.5vw] m-1 ml-2'>
+      <motion.div className='flex flex-row h-full w-full  rounded-lg' >
+        <div className=' h-full w-[12%] m-1 ml-2 flex justify-center items-center'>
           <img
-            className='h-full w-full rounded-lg'
+            className='h-[60px] w-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-lg p-1'
             src={data?.image[2]?.link}
           />
         </div>
 
-        <div className='flex flex-col w-[25%] justify-center'>
-          <span className='text-lg font-bold  pl-3 text-white'>{data?.name}</span>
-          <span className='text-sm  pl-3 text-white' >{data?.primaryArtists}</span>
+        <div className='flex flex-col w-[50%] justify-center'>
+          <span className='text-md lg:text-lg font-bold truncate  text-white'>{data?.name}</span>
+          <span className='text-sm truncate  text-white' >{data?.primaryArtists}</span>
         </div>
 
 
-        <div className='w-[35%] flex items-center justify-evenly'>
+        <div className='w-[40%] h-full flex '>
+
+        <div className='w-full flex items-center justify-around'>
           <button onClick={() => {
 
             dispatch(setCurrentSong(data1.currentSong - 1));
 
-          }}>{previousIcon}</button>
+          }}><BsSkipStartFill className='text-white  text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]'/> </button>
 
 
 
@@ -79,7 +81,7 @@ const MiniPlayerCard = ({ data, i }) => {
           }}>
 
             {
-              data1.isPlaying ? pauseIcon : playIcon
+              data1.isPlaying ? <BsPauseCircleFill className='text-white text-[30px] md:text-[32px] lg:text-[35px] xl:text-[37px]'/> : <BsPlayCircleFill  className='text-white text-[30px] md:text-[32px] lg:text-[35px] xl:text-[37px]'/>
             }
 
           </div>
@@ -88,17 +90,35 @@ const MiniPlayerCard = ({ data, i }) => {
               dispatch(setCurrentSong(data1.currentSong + 1));
             }}
           >
-            {nextIcon}
+            <BsSkipEndFill className='text-white text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]'/>
           </button>
 
+          <button
+          >
+            <BsThreeDotsVertical className='text-white text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]'/>
+          </button>
 
-        </div>
-
-        <button onClick={() => {
+           <button
+           onClick={()=>{
+            dispatch(setCompletePlayPause(true))
+            dispatch(setPlayPause(false));
+            myRef.current.pause();
+           }}
+          >
+            <BsRepeat className='text-white text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]'/>
+          </button>
+{/*
+          <button onClick={() => {
           dispatch(setCompletePlayPause(true))
           dispatch(setPlayPause(false));
           myRef.current.pause();
-        }}><CancelRoundedIcon /></button>
+        }}><GiCancel className='text-white hidden text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]'/></button> */}
+
+
+        </div>
+        </div>
+
+        
       </motion.div>
     </motion.div>
   )

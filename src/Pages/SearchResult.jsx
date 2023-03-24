@@ -15,7 +15,7 @@ const SearchResult = () => {
   const searchQuery = location?.state?.data;
   const [searchQueryResults, setsearchQueryResults] = useState("");
   const [loading, setloading] = useState(false);
-  const [songData, setsongData] = useState('');
+  const [songData, setsongData] = useState([]);
   const dispatch = useDispatch();
   let songs = [];
   const data = useSelector((state) => {
@@ -35,6 +35,7 @@ const SearchResult = () => {
       })
     })
     setsongData(songs);
+    
 
   }, [])
 
@@ -46,35 +47,30 @@ const SearchResult = () => {
   }
 
 
-  console.log(songData);
-
-
-
-
   return (
-    <div className='mt-14 bg-[black] w-[100vw] h-screen flex items-end flex-row'
+    <div className='mt-14 bg-[black] w-[100vw] h-auto flex items-center flex-col md:w-[85vw] '
     >
 
       {/* left work */}
-      <div className='w-[50vw] h-full  ml-[10vw] flex flex-col items-center'>
+      <div className='w-[90%] h-full flex flex-col items-center'>
 
-        <div className='w-[90%] h-[40vh] bg-[#202026] mt-10 rounded-lg'>
+        <div className='w-full pt-1 pb-2 bg-[#202026] mt-10 rounded-lg'>
 
-          <span className='text-white pl-7 pt-5 font-bold  w-full flex' >Top result</span>
-          <div className='  h-full flex items-center flex-col justify-center w-full'>
+          <span className='text-white pl-7 pt-1 font-bold text-sm w-full flex' >Top result</span>
+          <div className=' mt-2 h-full flex items-center flex-col justify-center w-full'>
             {
 
               searchQueryResults?.topQuery?.results?.map((item, index) => {
 
                 return (
-                  <div className='flex w-full h-full  p-1 '>
+                  <div className='flex w-full h-full '>
 
-                    <div className='w-[35%] h-full flex  items-center justify-center '>
+                    <div className='w-[30%]  h-full flex  items-center justify-center '>
                       {
                         loading ?
 
                           <img
-                            className='w-[250px] h-[250px] rounded-lg hover:opacity-70 '
+                            className='w-[60px] h-[60px]  rounded-lg hover:opacity-70 '
                             src={item?.image[2]?.link}
 
                           />
@@ -91,8 +87,8 @@ const SearchResult = () => {
                     </div>
 
                     <div className='flex flex-col  h-full justify-center w-[60%] '>
-                      <span className='text-white text-2xl font-bold'>{item?.title}</span>
-                      <span className='text-white text-lg mt-3'>{item?.description}</span>
+                      <span className='text-white text-md font-bold truncate'>{item?.title}</span>
+                      <span className='text-white text-sm'>{item?.description}</span>
                     </div>
                   </div>
                 )
@@ -107,11 +103,11 @@ const SearchResult = () => {
 
         </div>
 
-        <div className='w-[90%] h-auto bg-[#202026] mt-10 rounded-lg'>
+        <div className='w-full h-auto bg-[#202026] mt-10 rounded-lg pt-1 pb-2'>
 
-          <span className='text-white pl-7 pt-5 font-bold  w-full flex' >Related Albums</span>
+          <span className='text-white pl-7 pt-1 font-bold text-sm w-full flex' >Related Albums</span>
 
-          <div className='h-full w-full  flex flex-row items-center justify-center'>
+          <div className='h-full w-full mt-2 sm:mt-4 flex flex-col items-center justify-center sm:flex-row'>
 
             {
               searchQueryResults?.albums?.results?.map((item, index) => {
@@ -123,13 +119,13 @@ const SearchResult = () => {
                       style={{
                         boxShadow: 'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
                       }}
-                      className='w-[250px] h-[250px] rounded-lg  mb-10'
+                      className='w-[150px] h-[150px] sm:w-[120px] sm:h-[120px] rounded-lg  mb-10'
                       src={item?.image[2]?.link}
 
                     />
 
 
-                    <span className='text-white text-lg font-bold truncate max-w-[200px]'>{item?.title}</span>
+                    <span className='text-white text-lg font-bold truncate max-w-[200px] sm:w-[150px]'>{item?.title}</span>
 
 
                   </div>
@@ -146,14 +142,14 @@ const SearchResult = () => {
 
 
       {/* right work */}
-      <div className='w-[40vw] h-full flex justify-center'>
+      <div className='w-full h-[80vh]  flex justify-center'>
 
 
-        <div className='w-[90%] h-[40vh] bg-[#202026] mt-10 rounded-lg '>
+        <div className='w-[90%] h-full bg-[#202026] mt-10 mb-5 rounded-lg '>
 
           <span className='text-white pl-7 pt-5 font-bold  w-full flex' >Related Songs</span>
 
-          <div className='h-full w-full  flex flex-col  items-center mb-3 '>
+          <div className='h-full w-full  flex flex-col  items-center mb-3'>
 
             {
 

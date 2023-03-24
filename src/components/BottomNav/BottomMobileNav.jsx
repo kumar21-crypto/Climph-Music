@@ -15,7 +15,7 @@ const BottomMobileNav = () => {
   const navigate = useNavigate();
 
   return (
-    <div className='fixed bottom-1 w-full bg-[black] md:hidden'>
+    <div className='fixed bottom-0 w-full bg-[black]  md:hidden'>
       <BottomNavigation
          sx={{bgcolor:'black'}}
         showLabels

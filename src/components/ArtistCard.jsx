@@ -18,7 +18,7 @@ const ArtistCard = ({ album }) => {
     }} 
     className='flex flex-col justify-center items-center  rounded-md'>
     <img
-          className='w-44 h-44 rounded-full shadow-2xl cursor-pointer hover:-translate-y-1
+          className='w-32 h-32 rounded-full shadow-2xl cursor-pointer hover:-translate-y-1
           hover:scale-110 duration-500 hover:opacity-80'
           src={album?.image}
           loading="lazy"

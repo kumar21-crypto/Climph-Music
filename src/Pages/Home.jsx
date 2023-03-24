@@ -36,7 +36,8 @@ const Home = ({ children }) => {
 
     return (
         <div
-            className='w-[100vw] mt-[1vh] bg-[#0a0a0b] sm:items-center h-auto flex flex-col md:w-[90vw] md:items-center md:ml-[10vw]'>
+            className='w-[100vw] mt-[1vh] h-auto flex flex-col md:w-[85vw]
+             '>
 
 
             <HomeCarousel />
@@ -44,9 +45,9 @@ const Home = ({ children }) => {
 
             {/* top artists */}
 
-            <div className='mt-[1%]'>
-                <span className='ml-[2%] text-xl font-bold text-white'>Top Artists</span>
-                <div className='grid w-[90vw] grid-cols-autofill p-5'>
+            <div className='mt-[1%] w-full'>
+            <span className='text-white pl-7 pt-5 font-bold md:ml-[3rem] w-full flex' >Top Picks</span>
+                <div className='grid  w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-autofill  p-5'>
                     {
                         searchResults?.artist_recos?.map((item) => {
                             return (
@@ -62,9 +63,9 @@ const Home = ({ children }) => {
 
             {/* city mood */}
 
-            <div className='mt-[1%]'>
-                <span className='ml-[4%] text-xl font-bold text-white'>City Mod</span>
-                <div className='grid w-[90vw] grid-cols-autofill p-5'>
+            <div className='mt-[1%] w-full'>
+            <span className='text-white pl-7 pt-5 font-bold md:ml-[3rem] w-full flex' >City Mood</span>
+                <div className='grid  w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-autofill  p-5'>
                     {
                         searchResults?.city_mod?.map((item) => {
                             return (
@@ -80,9 +81,9 @@ const Home = ({ children }) => {
 
             {/* promo data 70 */}
 
-            <div className='mt-[1%]'>
-                <span className='ml-[2%] text-xl font-bold text-white'>Devotional world</span>
-                <div className='grid w-[90vw] grid-cols-autofill1 p-5'>
+            <div className='mt-[1%] w-full'>
+            <span className='text-white pl-7 pt-5 font-bold md:ml-[3rem] w-full flex' >Devotional world</span>
+                <div className='grid  w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-autofill  p-5'>
                     {
                         searchResults['promo:vx:data:107']?.map((item) => {
                             return (
