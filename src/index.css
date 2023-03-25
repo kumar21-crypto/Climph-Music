@@ -27,40 +27,6 @@ a {
 
 }
 
-/* .container {
-  position: absolute; 
-   width: 50%;
- 
-  /* transform: translate(-50%,-50%); */
-
-
-/* .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0;
-  transition: opacity 0.4s ease-in-out;
-} */
-
-/* .content{
-  position: absolute;
-  /* transform: translate(-50%,-50%); */
-  /* text-align: center;
-
-
-.searchImage {
-  border-radius: 10px;
-  margin-left: 20px;
-  margin-bottom: 40px;
-  width: 250px;
-  height: 250px;
-} */ */
-
-/* .container:hover .overlay {
-  opacity: 0.8;
-} */ */
 
 .selected {
   background-color: blue;
@@ -112,11 +78,6 @@ a {
 
 .category-btn {
   font-weight: bold !important;
-  text-transform: capitalize;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  cursor: pointer;
   background: transparent;
   outline: none;
   border: none;

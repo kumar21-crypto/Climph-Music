@@ -7,11 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCompletePlayPause, setPlayPause, setCurrentSongRef, setCurrentSong } from '../components/Slices/PlayerSlice';
 import {BsPlayCircleFill,BsPauseCircleFill,BsSkipStartFill,BsSkipEndFill,BsRepeat,BsThreeDotsVertical} from 'react-icons/bs';
 import {GiCancel} from 'react-icons/gi';
+import { prominent,average } from 'color.js';
 
 const MiniPlayerCard = ({ data, i }) => {
 
 
   const dispatch = useDispatch();
+  const [bgColor, setbgColor] = useState('#000000');
+  const image = data?.image[2]?.link;
 
   const data1 = useSelector((state) => {
     return state.player;
@@ -29,22 +32,27 @@ const MiniPlayerCard = ({ data, i }) => {
 
   }, [])
 
-
+  prominent(image, { amount: 1, format:'hex', sample:10 }).then(color => {
+    setbgColor(color);
+  })
   const songUrl = data?.downloadUrl[4]?.link;
   let audio = new Audio(songUrl);
   const myRef = useRef(audio);
 
-
+  // bg-[#1a535e]
 
   return (
     <motion.div
-      className='flex flex-row h-[8vh] lg:h-[10vh] w-[100vw] bg-[#1a535e]  rounded-lg  bottom-14 md:bottom-0 fixed justify-center items-end'>
+      style={{
+     backgroundColor:`${bgColor}`
+      }}
+      className='flex flex-row h-[8vh] lg:h-[10vh] w-[100vw]   rounded-lg  bottom-14 md:bottom-0 fixed justify-center items-end'>
 
-      <motion.div className='flex flex-row h-full w-full  rounded-lg' >
+      <motion.div className='flex flex-row h-full w-full   rounded-lg' >
         <div className=' h-full w-[12%] m-1 ml-2 flex justify-center items-center'>
           <img
             className='h-[60px] w-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-lg p-1'
-            src={data?.image[2]?.link}
+            src={image}
           />
         </div>
 

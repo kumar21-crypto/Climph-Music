@@ -2,8 +2,6 @@ import { useLocation } from 'react-router-dom'
 import { useState, useEffect, createContext } from 'react';
 import { fetchDetailDataFromApi, fetchArtistDetailById, fetchPlaylistByID, fetchSongDetailDataByLink,fetchAlbumData,fetchPlaylistData } from '../components/Api';
 import SongCard from '../AlbumFetch/SongCard';
-import MiniPlayerCard from '../components/MiniPlayerCard';
-import { Skeleton } from '@mui/material';
 import '../../src/index.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { setSongsArray, setCurrentSong } from '../components/Slices/PlayerSlice';
@@ -91,10 +89,6 @@ const AlbumDetail = (props) => {
 
   
  
-  colorjs.prominent(image,{amount:1,format:'hex'}).then((color) =>{
-    console.log(color);
-    setbgcolor(color);
-  })
 
   const setCurrent = (index) => {
     dispatch(setCurrentSong(index));

@@ -2,11 +2,12 @@ import axios from "axios"
 
 const BASE_URL = "https://www.jiosaavn.com/api.php?";
 const API_STRING = "&_format=json&_marker=0&api_version=4&ctx=web6dot0";
-const BASE_DETAIL_URL = "https://saavn.me/albums?link=";
-const BASE_ARTIST_DETAIL_URL = "https://saavn.me/artists?id=";
-const BASE_PLAYLIST_DETAIL_URL = "https://saavn.me/playlists?id=";
-const BASE_SEARCH_ALL_URL = "https://saavn.me/search/all?query=";
-const BASE_SONG_DETAIL_URL = "https://saavn.me/songs?link=";
+const SEARCH_API_STRING = "&_format=json&_marker=0&api_version=4&ctx=web6dot0&q=";
+const BASE_DETAIL_URL = "https://climph-music-api.vercel.app/albums?link=";
+const BASE_ARTIST_DETAIL_URL = "https://climph-music-api.vercel.app/artists?id=";
+const BASE_PLAYLIST_DETAIL_URL = "https://climph-music-api.vercel.app/playlists?id=";
+const BASE_SEARCH_ALL_URL = "https://climph-music-api.vercel.app/search/all?query=";
+const BASE_SONG_DETAIL_URL = "https://climph-music-api.vercel.app/songs?link=";
 const BASE_ALBUM_ID = "&cc=in&albumid=";
 const BASE_PLAYLIST_ID = "&cc=in&listid=";
 const CORS_URL = "https://cors-anywhere.herokuapp.com/";
@@ -89,3 +90,8 @@ export const fetchDetailDataFromApi = async (link) => {
    const {data} = await axios.get(`${CORS_URL}${BASE_SONG_DETAIL_URL}${link}`);
    return data;
  }
+
+ export const searchByQuerySaavn = async (query) => {
+   const {data} = await axios.get(`${CORS_URL}${BASE_URL}${endpoints['getResults']}${SEARCH_API_STRING}${query}`);
+   return data;
+}

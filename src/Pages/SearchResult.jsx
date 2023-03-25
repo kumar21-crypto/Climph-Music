@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import SongCard from '../AlbumFetch/SongCard';
-import { searchByQuery, fetchSongDetailDataByLink } from '../components/Api'
+import { searchByQuery, searchByQuerySaavn, fetchSongDetailDataByLink } from '../components/Api'
 import { BsHeart } from 'react-icons/bs'
 import { RxDotsVertical } from 'react-icons/rx'
 import { HiPlay } from 'react-icons/hi'
@@ -14,8 +14,11 @@ const SearchResult = () => {
   const location = useLocation();
   const searchQuery = location?.state?.data;
   const [searchQueryResults, setsearchQueryResults] = useState("");
+  const [searchQuerySaavn, setsearchQuerySaavn] = useState("");
   const [loading, setloading] = useState(false);
+  const [arrayOnce, setarrayOnce] = useState(false);
   const [songData, setsongData] = useState([]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   let songs = [];
   const data = useSelector((state) => {
@@ -29,35 +32,55 @@ const SearchResult = () => {
       fetchQuery(searchQuery);
     }
 
-    searchQueryResults?.songs?.results?.map((item) => {
-      fetchSongDetailDataByLink(item?.url).then((res) => {
-        songs.push(res?.data[0]);
-      })
-    })
-    setsongData(songs);
-    
+    // searchQueryResults?.songs?.results?.map((item) => {
+    //   fetchSongDetailDataByLink(item?.url).then((res) => {
+    //     songs.push(res?.data[0]);
+    //   })
+    // })
+    // setsongData(songs);
+    // console.log(songData);
 
   }, [])
 
+
+  // fetch query 
   const fetchQuery = (query) => {
+
+    // docs saavn
     searchByQuery(`${query}`).then((res) => {
       setsearchQueryResults(res?.data);
       setloading(true);
     })
+
+    // jio saavn
+    searchByQuerySaavn(`${query}`).then((res) => {
+      setsearchQuerySaavn(res);
+    })
+
   }
+
+  // fetch query songs and push in a array
+  const fetchSongDetails = (link) => {
+    fetchSongDetailDataByLink(link).then((res) => {
+      songs.push(res?.data[0]);
+    })
+
+  }
+
+  console.log(songs);
 
 
   return (
-    <div className='mt-14 bg-[black] w-[100vw] h-auto flex items-center flex-col md:w-[85vw] '
+    <div className='mt-14 bg-[black] w-[100vw] h-auto flex items-center  flex-col md:w-[85vw] lg:flex-row '
     >
 
       {/* left work */}
-      <div className='w-[90%] h-full flex flex-col items-center'>
+      <div className='w-[90%] h-full flex flex-col'>
 
-        <div className='w-full pt-1 pb-2 bg-[#202026] mt-10 rounded-lg'>
+        <div className='w-full h-auto  pt-1 pb-2 bg-[#202026] mt-3 rounded-lg'>
 
-          <span className='text-white pl-7 pt-1 font-bold text-sm w-full flex' >Top result</span>
-          <div className=' mt-2 h-full flex items-center flex-col justify-center w-full'>
+          <span className='text-white pl-7 pt-1 font-bold text-sm w-full flex' >Top Result</span>
+          <div className=' mt-2 h-full flex items-center bg-[#202026]  flex-col justify-center w-full'>
             {
 
               searchQueryResults?.topQuery?.results?.map((item, index) => {
@@ -65,13 +88,17 @@ const SearchResult = () => {
                 return (
                   <div className='flex w-full h-full '>
 
-                    <div className='w-[30%]  h-full flex  items-center justify-center '>
+                    <div className='w-[30%] h-full flex  items-center justify-center '>
                       {
                         loading ?
 
                           <img
-                            className='w-[60px] h-[60px]  rounded-lg hover:opacity-70 '
+                            className='w-[60px] h-[60px] cursor-pointer rounded-lg hover:opacity-70 '
                             src={item?.image[2]?.link}
+                            loading='lazy'
+                            onClick={() => {
+                              navigate('/albumdetail', { state: { data: item } });
+                            }}
 
                           />
 
@@ -87,7 +114,7 @@ const SearchResult = () => {
                     </div>
 
                     <div className='flex flex-col  h-full justify-center w-[60%] '>
-                      <span className='text-white text-md font-bold truncate'>{item?.title}</span>
+                      <span className='text-white text-md font-bold cursor-pointer truncate'>{item?.title}</span>
                       <span className='text-white text-sm'>{item?.description}</span>
                     </div>
                   </div>
@@ -113,19 +140,23 @@ const SearchResult = () => {
               searchQueryResults?.albums?.results?.map((item, index) => {
                 return (
 
-                  <div className=' w-full p-1 flex flex-col items-center mb-5'>
+                  <div className=' w-full p-1 flex flex-col items-center justify-center mb-5'>
 
                     <img
                       style={{
                         boxShadow: 'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
                       }}
-                      className='w-[150px] h-[150px] sm:w-[120px] sm:h-[120px] rounded-lg  mb-10'
+                      className='w-[150px] h-[150px] cursor-pointer sm:w-[120px] sm:h-[120px] rounded-lg  mb-10'
                       src={item?.image[2]?.link}
+                      loading='lazy'
+                      onClick={()=>{
+                        navigate('/albumdetail', { state: { data: item } });
+                      }}
 
                     />
 
 
-                    <span className='text-white text-lg font-bold truncate max-w-[200px] sm:w-[150px]'>{item?.title}</span>
+                    <span className='text-white bg-[#104440] text-lg flex justify-center items-center font-bold truncate w-[200px] sm:w-[150px]'>{item?.title}</span>
 
 
                   </div>
@@ -142,10 +173,10 @@ const SearchResult = () => {
 
 
       {/* right work */}
-      <div className='w-full h-[80vh]  flex justify-center'>
+      <div className='w-full h-auto mb-28 flex justify-center'>
 
 
-        <div className='w-[90%] h-full bg-[#202026] mt-10 mb-5 rounded-lg '>
+        <div className='w-[90%] h-full bg-[#202026] mt-10 lg:mt-3 mb-5 rounded-lg '>
 
           <span className='text-white pl-7 pt-5 font-bold  w-full flex' >Related Songs</span>
 
@@ -153,25 +184,37 @@ const SearchResult = () => {
 
             {
 
-              songData?.map((item, index) => {
+              searchQuerySaavn?.results?.map((item, index) => {
+
+                fetchSongDetails(item?.perma_url);
 
                 return (
 
                   <div className='w-[92%] h-[10vh] bg-[black] rounded-lg mt-2 flex flex-row items-center p-2 cursor-pointer hover:opacity-70 '
-                  onClick={()=>{
-                    dispatch(setSongsArray(songData));
-                    dispatch(setCurrentSong(index));
-                  }}
+                    onClick={() => {
+
+                      {
+                        arrayOnce ?
+                          dispatch(setCurrentSong(index))
+                          :
+                          dispatch(setSongsArray(songs));
+                        dispatch(setCurrentSong(index));
+                      }
+
+                      setarrayOnce(true);
+
+                    }}
                   >
 
                     <img
                       className='w-[80px] h-[80px] rounded-lg '
-                      src={item?.image[1]?.link}
+                      src={item?.image}
+                      loading='lazy'
                     />
 
                     <div className=' w-[60%] h-full flex flex-col '>
-                      <span className='pl-5 font-medium text-white  truncate'>{item?.name}</span>
-                      <span className='pl-5 text-sm mt-1 text-white  truncate'>{item?.primaryArtists}</span>
+                      <span className='pl-5 font-medium text-white  truncate'>{item?.title}</span>
+                      <span className='pl-5 text-sm mt-1 text-white  truncate'>{item?.subtitle}</span>
                     </div>
 
                     <div className='flex flex-row w-[25%] justify-around  '>
@@ -180,28 +223,28 @@ const SearchResult = () => {
 
                     </div>
 
-                    </div>
+                  </div>
 
-                    )
+                )
 
               })
 
             }
 
-                  </div>
+          </div>
 
         </div>
 
-
-        </div>
 
       </div>
-      )
+
+    </div>
+  )
 }
 
-      export default SearchResult
+export default SearchResult
 
-      {/* <div className='w-[92%] h-[10vh] bg-[black] rounded-lg mt-2 flex flex-row items-center p-2 cursor-pointer hover:opacity-70 '
+{/* <div className='w-[92%] h-[10vh] bg-[black] rounded-lg mt-2 flex flex-row items-center p-2 cursor-pointer hover:opacity-70 '
                   onClick={()=> {
                     // dispatch(setSongsArray(searchQueryResults?.songs?.results));
                     // dispatch(setCurrentSong(index));

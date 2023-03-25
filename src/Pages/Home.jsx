@@ -22,14 +22,7 @@ const Home = ({ children }) => {
         
       }, [])
 
-      const setcolor = (image) => {
-
-        colorjs.prominent(image,{amount:1,format:'hex'}).then((color) =>{
-            console.log(color);
-            setbgcolor(color);
-          })
-
-      }
+    
       
     // const { showMiniPlayer} = useContext(AlbumDetailContext);
 

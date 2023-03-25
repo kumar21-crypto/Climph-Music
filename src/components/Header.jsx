@@ -34,6 +34,15 @@ const Header = () => {
       
   }
 
+  const searchClickHandler = () => {
+    if(searchQuery === ""){
+      alert("please enter something .....")
+    }
+    else{
+      navigate('/searchresult', { state: { data : searchQuery } });
+    }
+  }
+
 
   return (
     <Box sx={{ flexGrow: 1, marginBottom: 3 }} >
@@ -66,12 +75,7 @@ const Header = () => {
               <button
               className='flex  md:ml-[5vw]  lg:ml-[5vw] xl:ml-[5vw] 2xl:ml-[8vw] justify-center items-center'
                 onClick={() => {
-                  if (open) {
-                    setopen(false);
-                  }
-                  else {
-                    setopen(true);
-                  }
+                  searchClickHandler();
                 }}>
                 <SearchIcon
                   sx={{ fontSize: 30 ,color:'white'}}
