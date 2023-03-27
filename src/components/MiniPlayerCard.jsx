@@ -28,7 +28,7 @@ const MiniPlayerCard = ({ data, i }) => {
   })
 
   prominent(data1.songlist[data1.currentSong]?.image[1]?.link, { amount: 1, format: 'hex', sample: 10 }).then(color => {
-    const lowVibranceColor = chroma(color).desaturate().darken(2);
+    const lowVibranceColor = chroma(color).desaturate(2).darken(2);
     setbgColor(lowVibranceColor);
   })
 
