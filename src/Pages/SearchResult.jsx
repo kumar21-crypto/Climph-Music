@@ -2,13 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import SongCard from '../AlbumFetch/SongCard';
 import { searchByQuery, searchByQuerySaavn, fetchSongDetailDataByLink } from '../components/Api'
-import { BsHeart } from 'react-icons/bs'
+import { BsHeart, BsShareFill } from 'react-icons/bs'
 import { RxDotsVertical } from 'react-icons/rx'
 import { HiPlay } from 'react-icons/hi'
 import '../index.css'
-import { Skeleton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSongsArray, setCurrentSong } from '../components/Slices/PlayerSlice';
+import Skeleton from '@mui/material/Skeleton';
+import MenuList from '@mui/material/MenuList';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import SongMenu from '../components/SongMenu';
+import Menu from "@mui/material/Menu";
+import { MdPlaylistAdd } from 'react-icons/md';
+import { HiOutlineFolderAdd } from 'react-icons/hi';
+import { IoRadio } from 'react-icons/io5';
 
 const SearchResult = () => {
   const location = useLocation();
@@ -26,19 +35,21 @@ const SearchResult = () => {
 
   })
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
 
   useEffect(() => {
     if (searchQuery != null) {
       fetchQuery(searchQuery);
     }
-
-    // searchQueryResults?.songs?.results?.map((item) => {
-    //   fetchSongDetailDataByLink(item?.url).then((res) => {
-    //     songs.push(res?.data[0]);
-    //   })
-    // })
-    // setsongData(songs);
-    // console.log(songData);
 
   }, [])
 
@@ -67,12 +78,15 @@ const SearchResult = () => {
 
   }
 
-  console.log(songs);
+
 
 
   return (
     <div className='mt-14 bg-[black] w-[100vw] h-auto flex items-center  flex-col md:w-[85vw] lg:flex-row '
     >
+
+      <Skeleton variant='rectangular' width={50} height={50}
+      />
 
       {/* left work */}
       <div className='w-[90%] h-full flex flex-col'>
@@ -149,7 +163,7 @@ const SearchResult = () => {
                       className='w-[150px] h-[150px] cursor-pointer sm:w-[120px] sm:h-[120px] rounded-lg  mb-10'
                       src={item?.image[2]?.link}
                       loading='lazy'
-                      onClick={()=>{
+                      onClick={() => {
                         navigate('/albumdetail', { state: { data: item } });
                       }}
 
@@ -190,26 +204,26 @@ const SearchResult = () => {
 
                 return (
 
-                  <div className='w-[92%] h-[10vh] bg-[black] rounded-lg mt-2 flex flex-row items-center p-2 cursor-pointer hover:opacity-70 '
-                    onClick={() => {
-
-                      {
-                        arrayOnce ?
-                          dispatch(setCurrentSong(index))
-                          :
-                          dispatch(setSongsArray(songs));
-                        dispatch(setCurrentSong(index));
-                      }
-
-                      setarrayOnce(true);
-
-                    }}
+                  <div className='w-[92%] h-[10vh] bg-[black] rounded-lg mt-2 flex flex-row items-center p-2 cursor-move hover:opacity-70 '
                   >
 
                     <img
-                      className='w-[80px] h-[80px] rounded-lg '
+                      className='w-[80px] h-[80px] rounded-lg cursor-pointer '
                       src={item?.image}
                       loading='lazy'
+                      onClick={() => {
+                        
+                        {
+                          arrayOnce ?
+                            dispatch(setCurrentSong(index))
+                            :
+                            dispatch(setSongsArray(songs));
+                            dispatch(setCurrentSong(index));
+                        }
+
+                        setarrayOnce(true);
+
+                      }}
                     />
 
                     <div className=' w-[60%] h-full flex flex-col '>
@@ -219,9 +233,33 @@ const SearchResult = () => {
 
                     <div className='flex flex-row w-[25%] justify-around  '>
                       <BsHeart className='text-white' />
-                      <RxDotsVertical className='text-white' />
+                      <RxDotsVertical className='text-white cursor-pointer' onClick={handleClick} />
 
                     </div>
+
+                    <Menu
+                      keepMounted
+                      anchorEl={anchorEl}
+                      onClose={handleClose}
+                      open={Boolean(anchorEl)}
+                    >
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon><IoRadio/></ListItemIcon>
+                        <ListItemText>Start radio</ListItemText>
+                      </MenuItem>
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon><HiOutlineFolderAdd/></ListItemIcon>
+                        <ListItemText>Add to library</ListItemText>
+                      </MenuItem>
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon><MdPlaylistAdd/></ListItemIcon>
+                        <ListItemText>Add to playlist</ListItemText>
+                      </MenuItem>
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon><BsShareFill/></ListItemIcon>
+                        <ListItemText>Share</ListItemText>
+                      </MenuItem>
+                    </Menu>
 
                   </div>
 

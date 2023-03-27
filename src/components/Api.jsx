@@ -12,7 +12,6 @@ const BASE_ALBUM_ID = "&cc=in&albumid=";
 const BASE_PLAYLIST_ID = "&cc=in&listid=";
 const CORS_URL = "https://cors-anywhere.herokuapp.com/";
 
-
 export const endpoints = {
     'homeData': '__call=webapi.getLaunchData',
     'topSearches': '__call=content.getTopSearches',
@@ -66,28 +65,28 @@ export const fetchPlaylistData = async (id) => {
 
 export const fetchDetailDataFromApi = async (link) => {
 
-    const {data} = await axios.get(`${CORS_URL}${BASE_DETAIL_URL}${link}`);
+    const {data} = await axios.get(`${BASE_DETAIL_URL}${link}`);
     return data;
  }
 
  export const fetchArtistDetailById = async (id) => {
 
-    const {data} = await axios.get(`${CORS_URL}${BASE_ARTIST_DETAIL_URL}${id}`);
+    const {data} = await axios.get(`${BASE_ARTIST_DETAIL_URL}${id}`);
     return data;
  }
 
  export const fetchPlaylistByID = async (id) => {
-    const {data} = await axios.get(`${CORS_URL}${BASE_PLAYLIST_DETAIL_URL}${id}`);
+    const {data} = await axios.get(`${BASE_PLAYLIST_DETAIL_URL}${id}`);
     return data;
  }
 
  export const searchByQuery = async (query) => {
-    const {data} = await axios.get(`${CORS_URL}${BASE_SEARCH_ALL_URL}${query}`);
+    const {data} = await axios.get(`${BASE_SEARCH_ALL_URL}${query}`);
     return data;
  }
 
  export const fetchSongDetailDataByLink = async (link) => {
-   const {data} = await axios.get(`${CORS_URL}${BASE_SONG_DETAIL_URL}${link}`);
+   const {data} = await axios.get(`${BASE_SONG_DETAIL_URL}${link}`);
    return data;
  }
 

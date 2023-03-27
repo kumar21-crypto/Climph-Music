@@ -151,7 +151,7 @@ const AlbumDetail = (props) => {
               data?.songlist?.map((item, index) => {
 
                   return (
-                    <div className='mt-4 w-full flex flex-col items-center  selected' onClick={() => {
+                    <div className='mt-4 w-full flex flex-col items-center' onClick={() => {
                       setCurrent(index);
           
                     }}>

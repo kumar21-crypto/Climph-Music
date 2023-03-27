@@ -5,9 +5,12 @@ import { MiniPlayerContext } from '../AlbumFetch/SongCard';
 import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux';
 import { setCompletePlayPause, setPlayPause, setCurrentSongRef, setCurrentSong } from '../components/Slices/PlayerSlice';
-import {BsPlayCircleFill,BsPauseCircleFill,BsSkipStartFill,BsSkipEndFill,BsRepeat,BsThreeDotsVertical} from 'react-icons/bs';
-import {GiCancel} from 'react-icons/gi';
-import { prominent,average } from 'color.js';
+import { BsPlayCircleFill, BsPauseCircleFill, BsSkipStartFill, BsSkipEndFill, BsRepeat, BsThreeDotsVertical } from 'react-icons/bs';
+import { GiCancel } from 'react-icons/gi';
+import { prominent, average } from 'color.js';
+import chroma from 'chroma-js';
+import { useNavigate } from 'react-router-dom';
+
 
 const MiniPlayerCard = ({ data, i }) => {
 
@@ -15,38 +18,91 @@ const MiniPlayerCard = ({ data, i }) => {
   const dispatch = useDispatch();
   const [bgColor, setbgColor] = useState('#000000');
   const image = data?.image[2]?.link;
+  const [currentAudio, setcurrentAudio] = useState(null);
+  const [currentTimee, setcurrentTimee] = useState(0);
+  const navigate = useNavigate();
 
   const data1 = useSelector((state) => {
     return state.player;
 
   })
 
+  prominent(data1.songlist[data1.currentSong]?.image[1]?.link, { amount: 1, format: 'hex', sample: 10 }).then(color => {
+    const lowVibranceColor = chroma(color).desaturate().darken(2);
+    setbgColor(lowVibranceColor);
+  })
 
+  const nextSong = () =>{
+    if (data1.currentSong === data1.songlist.length - 1) {
+      dispatch(setCurrentSong(0));
+    } else {
+      dispatch(setCurrentSong(data1.currentSong+1));
+    }
+  }
+
+  const previousSong = () =>{
+    if (data1.currentSong === 0) {
+      dispatch(setCurrentSong(data1.songlist.length - 1));
+    } else {
+      dispatch(setCurrentSong(data1.currentSong-1));
+    }
+  }
+  
+
+  const playAudio = (url) => {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
+    const newAudio = new Audio(url,onended={nextSong});
+    dispatch(setPlayPause(true));
+    newAudio.play();
+    setcurrentTimee(newAudio.currentTime);
+    setcurrentAudio(newAudio);
+  };
+
+ 
+
+  
 
   useEffect(() => {
 
-    if (data1.isPlaying) {
-      dispatch(setPlayPause(false));
-      myRef.current.pause();
+    if(data1.isPlaying){
+      playAudio(data1.songlist[data1.currentSong].downloadUrl[4]?.link);
     }
+   
+    
+  }, [data1.songlist[data1.currentSong]])
+  
+ 
 
-  }, [])
+  
 
-  prominent(image, { amount: 1, format:'hex', sample:10 }).then(color => {
-    setbgColor(color);
-  })
-  const songUrl = data?.downloadUrl[4]?.link;
-  let audio = new Audio(songUrl);
-  const myRef = useRef(audio);
+  // const setUpMiniPlayer = () => {
+
+  //   const songUrl = data?.downloadUrl[4]?.link;
+  //   let audio = new Audio(songUrl);
+  //   const myRef = useRef(audio);
+  //   dispatch(setCurrentSongRef(myRef));
+  //   dispatch(setPlayPause(true));
+  //   myRef.current.play();
+
+  // }
+
 
   // bg-[#1a535e]
 
   return (
     <motion.div
       style={{
-     backgroundColor:`${bgColor}`
+        backgroundColor: `${bgColor}`
       }}
-      className='flex flex-row h-[8vh] lg:h-[10vh] w-[100vw]   rounded-lg  bottom-14 md:bottom-0 fixed justify-center items-end'>
+      className='flex flex-row h-[8vh] lg:h-[10vh] w-[100vw]   rounded-lg  bottom-14 md:bottom-0 fixed justify-center items-end'
+      onClick={()=>{
+        navigate('/audioplayer');
+      }}
+      >
 
       <motion.div className='flex flex-row h-full w-full   rounded-lg' >
         <div className=' h-full w-[12%] m-1 ml-2 flex justify-center items-center'>
@@ -64,58 +120,61 @@ const MiniPlayerCard = ({ data, i }) => {
 
         <div className='w-[40%] h-full flex '>
 
-        <div className='w-full flex items-center justify-around'>
-          <button onClick={() => {
-
-            dispatch(setCurrentSong(data1.currentSong - 1));
-
-          }}><BsSkipStartFill className='text-white  text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]'/> </button>
+          <div className='w-full flex items-center justify-around'>
+            <button onClick={() => {previousSong()}}><BsSkipStartFill className='text-white  text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]' /> </button>
 
 
 
-          <div onClick={() => {
+            <div onClick={() => {
+              if(data1.isPlaying){
+               
+                dispatch(setPlayPause(false));
+                currentAudio.pause();
+              }
+              else{
+                if(currentAudio === null){
+                  playAudio(data1.songlist[data1.currentSong].downloadUrl[4]?.link);
+                  
+                }
+                else if(currentAudio.currentTime > 0){
+                  dispatch(setPlayPause(true));
+                  currentAudio.play();
+                }
+                
+              }
+              
+            }}>
 
-            if (data1.isPlaying) {
-              dispatch(setPlayPause(false));
-              myRef.current.pause();
-            }
-            else {
-              dispatch(setPlayPause(true));
-              myRef.current.play();
-            }
+              {
+                data1.isPlaying ? <BsPauseCircleFill className='text-white text-[30px] md:text-[32px] lg:text-[35px] xl:text-[37px]' /> : <BsPlayCircleFill className='text-white text-[30px] md:text-[32px] lg:text-[35px] xl:text-[37px]' />
+              }
 
+            </div>
+            <button
+              onClick={() => {nextSong()}}
+            >
+              <BsSkipEndFill className='text-white text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]' />
+            </button>
 
+            <button
+            >
+              <BsThreeDotsVertical className='text-white text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]' />
+            </button>
 
-          }}>
+            <button
+              onClick={() => {
+                dispatch(setCompletePlayPause(true))
+                dispatch(setPlayPause(false));
+                if(data1.isPlaying){
+                  currentAudio.pause();
+                }
+                
 
-            {
-              data1.isPlaying ? <BsPauseCircleFill className='text-white text-[30px] md:text-[32px] lg:text-[35px] xl:text-[37px]'/> : <BsPlayCircleFill  className='text-white text-[30px] md:text-[32px] lg:text-[35px] xl:text-[37px]'/>
-            }
-
-          </div>
-          <button
-            onClick={() => {
-              dispatch(setCurrentSong(data1.currentSong + 1));
-            }}
-          >
-            <BsSkipEndFill className='text-white text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]'/>
-          </button>
-
-          <button
-          >
-            <BsThreeDotsVertical className='text-white text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]'/>
-          </button>
-
-           <button
-           onClick={()=>{
-            dispatch(setCompletePlayPause(true))
-            dispatch(setPlayPause(false));
-            myRef.current.pause();
-           }}
-          >
-            <BsRepeat className='text-white text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]'/>
-          </button>
-{/*
+              }}
+            >
+              <GiCancel className='text-white text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]' />
+            </button>
+            {/*
           <button onClick={() => {
           dispatch(setCompletePlayPause(true))
           dispatch(setPlayPause(false));
@@ -123,10 +182,10 @@ const MiniPlayerCard = ({ data, i }) => {
         }}><GiCancel className='text-white hidden text-[25px] md:text-[27px] xl:text-[31px] lg:text-[29px]'/></button> */}
 
 
-        </div>
+          </div>
         </div>
 
-        
+
       </motion.div>
     </motion.div>
   )
