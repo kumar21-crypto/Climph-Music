@@ -4,7 +4,7 @@ import { fetchDetailDataFromApi, fetchArtistDetailById, fetchPlaylistByID, fetch
 import SongCard from '../AlbumFetch/SongCard';
 import '../../src/index.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { setSongsArray, setCurrentSong } from '../components/Slices/PlayerSlice';
+import { setSongsArray, setCurrentSong, setCurrentSongId } from '../components/Slices/PlayerSlice';
 
 
 export const AlbumDetailContext = createContext();
@@ -92,6 +92,7 @@ const AlbumDetail = (props) => {
 
   const setCurrent = (index) => {
     dispatch(setCurrentSong(index));
+    
   }
 
 
@@ -153,7 +154,7 @@ const AlbumDetail = (props) => {
                   return (
                     <div className='mt-4 w-full flex flex-col items-center' onClick={() => {
                       setCurrent(index);
-          
+                      dispatch(setCurrentSongId(item?.id));
                     }}>
                       <SongCard
                         key={index}
@@ -172,7 +173,7 @@ const AlbumDetail = (props) => {
                   return (
                     <div className='mt-4 w-full flex flex-col items-center  ' onClick={() => {
                       setCurrent(index);
-              
+                      dispatch(setCurrentSongId(item?.id));
                       
                     }}>
                       <SongCard

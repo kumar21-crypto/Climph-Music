@@ -9,6 +9,8 @@ const playerSlice = createSlice({
         isPlaying:false,
         comPlayPause:true,
         currentSongRef:null,
+        autoPlaySwitch:false,
+        currentSongId:null,
        
 },
     reducers: {
@@ -29,6 +31,12 @@ const playerSlice = createSlice({
         },
         setCurrentSongRef(state,action) {
             state.currentSongRef = action.payload;
+        },
+        setPlayerAutoPlaySwitch(state,action) {
+            state.autoPlaySwitch = action.payload;
+        },
+        setCurrentSongId(state,action) {
+            state.currentSongId = action.payload;
         }
     }
 
@@ -36,4 +44,4 @@ const playerSlice = createSlice({
 
 export default playerSlice.reducer;
 
-export const {setSongsArray,setCurrentSong,setPlayPause,setCompletePlayPause,setCurrentSongRef} = playerSlice.actions;
+export const {setSongsArray,setCurrentSongId,setCurrentSong,setPlayPause,setCompletePlayPause,setCurrentSongRef,setPlayerAutoPlaySwitch} = playerSlice.actions;
