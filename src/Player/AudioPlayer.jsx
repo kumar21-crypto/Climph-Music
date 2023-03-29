@@ -92,10 +92,12 @@ const AudioPlayer = () => {
                         data.isPlaying ? 
                         <div className={`w-[30px] h-[30px] ${data.currentSongId === item?.id ? `flex` : `hidden`}`}>
                         <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_fmFSzb.json"  background="transparent"  speed="1"    loop  autoplay></lottie-player>
+                        
                         </div>
                         :
                     <FaPlay className={` ${hoveredItem===index ? "flex opacity-100 text-[white]" : "hidden"}`} onClick={()=>{dispatch(setCurrentSong(index));}} />
                       }
+                      <FaPlay className={` ${ data.isPlaying ? hoveredItem===data.currentSong ? "hidden" : hoveredItem===index ? "flex opacity-100 text-[white]" : "hidden"  : "hidden"}`} onClick={()=>{dispatch(setCurrentSong(index));}} />
                     </div>
                       <img
                         className={`w-[80px] h-[80px] hover:opacity-30  rounded-lg cursor-pointer ${data.currentSongId === item?.id ? `opacity-30` : ``} `}
@@ -103,6 +105,7 @@ const AudioPlayer = () => {
                         loading='lazy'
                         onClick={() => {
                           dispatch(setCurrentSong(index));
+                          dispatch(setCurrentSongId(item?.id));
                         }}
                         onMouseEnter={()=>{sethoveredItem(index)}}
                         onMouseLeave={()=>{sethoveredItem(null)}}

@@ -4,7 +4,7 @@ import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { MiniPlayerContext } from '../AlbumFetch/SongCard';
 import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux';
-import { setCompletePlayPause, setCurrentSongId,setPlayPause, setCurrentSongRef, setCurrentSong } from '../components/Slices/PlayerSlice';
+import { setCompletePlayPause, setCurrentSongId, setPlayPause, setCurrentSongRef, setCurrentSong } from '../components/Slices/PlayerSlice';
 import { BsPlayCircleFill, BsPauseCircleFill, BsSkipStartFill, BsSkipEndFill, BsRepeat, BsThreeDotsVertical } from 'react-icons/bs';
 import { GiCancel } from 'react-icons/gi';
 import { prominent, average } from 'color.js';
@@ -17,18 +17,20 @@ const MiniPlayerCard = ({ data, i }) => {
 
   const dispatch = useDispatch();
   const [bgColor, setbgColor] = useState('#000000');
-  const image = data?.image[2]?.link;
+
   const [currentAudio, setcurrentAudio] = useState(null);
   const navigate = useNavigate();
   const [currentSongTime, setcurrentSongTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentSongTimeInMinSec, setcurrentSongTimeInMinSec] = useState(0);
   const [openMainPlater, setopenMainPlater] = useState(false);
+  const [currentPlaylistOrNot, setcurrentPlaylistOrNot] = useState(false);
 
   const data1 = useSelector((state) => {
     return state.player;
 
   })
+
 
   prominent(data1.songlist[data1.currentSong]?.image[1]?.link, { amount: 1, format: 'hex', sample: 10 }).then(color => {
     const lowVibranceColor = chroma(color).desaturate(2).darken(2);
@@ -37,16 +39,20 @@ const MiniPlayerCard = ({ data, i }) => {
 
   const nextSong = () => {
     if (data1.currentSong === data1.songlist.length - 1) {
+      dispatch(setCurrentSongId(data1.songlist[0].id))
       dispatch(setCurrentSong(0));
     } else {
+      dispatch(setCurrentSongId(data1.songlist[data1.currentSong + 1].id));
       dispatch(setCurrentSong(data1.currentSong + 1));
     }
   }
 
   const previousSong = () => {
     if (data1.currentSong === 0) {
+      dispatch(setCurrentSongId(data1.songlist[data1.songlist.length - 1].id))
       dispatch(setCurrentSong(data1.songlist.length - 1));
     } else {
+      dispatch(setCurrentSongId(data1.songlist[data1.currentSong - 1].id));
       dispatch(setCurrentSong(data1.currentSong - 1));
     }
   }
@@ -86,13 +92,9 @@ const MiniPlayerCard = ({ data, i }) => {
   };
 
 
-
-
   useEffect(() => {
-
-    if (data1.isPlaying) {
+    if (data1.currentSongId === data1.songlist[data1.currentSong].id) {
       playAudio(data1.songlist[data1.currentSong].downloadUrl[4]?.link);
-
     }
 
 
@@ -102,11 +104,11 @@ const MiniPlayerCard = ({ data, i }) => {
 
 
   const handleOpenMainPlayer = () => {
-    if(openMainPlater){
+    if (openMainPlater) {
       setopenMainPlater(false);
       navigate(-1);
     }
-    else{
+    else {
       setopenMainPlater(true);
       navigate('/audioplayer');
     }
@@ -133,7 +135,7 @@ const MiniPlayerCard = ({ data, i }) => {
         backgroundColor: `black`
       }}
       className='flex flex-col h-[8vh]  lg:h-[10vh] w-[100vw]   rounded-lg  bottom-14 md:bottom-0 fixed justify-center items-end'
-   
+
     >
 
       <div className='h-1 w-full  ml-2 flex items-center mr-2'>
@@ -146,13 +148,13 @@ const MiniPlayerCard = ({ data, i }) => {
         <div className=' h-full w-[12%] m-1 ml-2 flex justify-center items-center'>
           <img
             className='h-[60px] w-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-lg p-1'
-            src={image}
+            src={data1.songlist[data1.currentSong]?.image[1]?.link}
           />
         </div>
 
         <div onClick={handleOpenMainPlayer} className='flex flex-col w-[50%] justify-center'>
-          <span className='text-md lg:text-lg font-bold truncate  text-white'>{data?.name}</span>
-          <span className='text-sm truncate  text-white' >{data?.primaryArtists}</span>
+          <span className='text-md lg:text-lg font-bold truncate  text-white'>{data1.songlist[data1.currentSong]?.name}</span>
+          <span className='text-sm truncate  text-white' >{data1.songlist[data1.currentSong]?.primaryArtists}</span>
         </div>
 
 
@@ -176,7 +178,7 @@ const MiniPlayerCard = ({ data, i }) => {
                 else if (currentAudio.currentTime > 0) {
                   dispatch(setPlayPause(true));
                   currentAudio.play();
-                  console.log(currentAudio.duration());
+
                 }
 
               }

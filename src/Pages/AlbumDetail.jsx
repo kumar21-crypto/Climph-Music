@@ -16,22 +16,13 @@ const AlbumDetail = (props) => {
   const id = location?.state?.data?.id;
   const url  = location?.state?.data?.perma_url;
 
-
-  // const artistID = detailresult?.data?.primaryArtistsId;
-  // const songUrl = detailresult?.data?.songs[0]?.downloadUrl[3]?.link;
-  // const playlistID = location?.state?.data?.id;
-  // const albumID = location?.state?.data?.id;
-
-  // const [playlistDetail, setplaylistDetail] = useState('');
   const [albumType, setalbumType] = useState('');
-  // const playlistImage = playlistDetail?.data?.image[2]?.link;
-  // const [songDetailData, setsongDetailData] = useState('');
-  // const [loading, setloading] = useState(false);
   const [playlistData, setplaylistData] = useState('');
   const [albumData, setalbumData] = useState('');
   const [playlistData1, setplaylistData1] = useState('');
   const [albumData1, setalbumData1] = useState('');
-  const [bgcolor, setbgcolor] = useState('')
+  const [bgcolor, setbgcolor] = useState('');
+  const [ArrayOnce, setArrayOnce] = useState(false);
 
   var image = albumData?.image;
   var color1 = "#000000";
@@ -50,7 +41,6 @@ const AlbumDetail = (props) => {
 
       fetchDetailDataFromApi(`${url}`).then((res) =>{
         setalbumData1(res);
-        dispatch(setSongsArray(res?.data?.songs));
       })
 
       fetchAlbumData(`${id}`).then((res) => {
@@ -65,7 +55,7 @@ const AlbumDetail = (props) => {
       
       fetchPlaylistByID(`${id}`).then((res) =>{
         setplaylistData1(res);
-        dispatch(setSongsArray(res?.data?.songs));
+       
       })
 
       
@@ -82,13 +72,8 @@ const AlbumDetail = (props) => {
       
     }
 
-
-
-
   }, [])
 
-  
- 
 
   const setCurrent = (index) => {
     dispatch(setCurrentSong(index));
@@ -149,12 +134,20 @@ const AlbumDetail = (props) => {
 
               albumType ?
 
-              data?.songlist?.map((item, index) => {
+              albumData1?.data?.songs?.map((item, index) => {
 
                   return (
                     <div className='mt-4 w-full flex flex-col items-center' onClick={() => {
-                      setCurrent(index);
                       dispatch(setCurrentSongId(item?.id));
+                      {
+                        ArrayOnce ? ""
+                        :
+                        dispatch(setSongsArray(albumData1?.data?.songs));
+                        setArrayOnce(true);
+                      }
+                      
+                      setCurrent(index);
+                      
                     }}>
                       <SongCard
                         key={index}
@@ -168,12 +161,13 @@ const AlbumDetail = (props) => {
 
                 :
 
-                data?.songlist?.map((item, index) => {
+                playlistData1?.data?.songs?.map((item, index) => {
 
                   return (
                     <div className='mt-4 w-full flex flex-col items-center  ' onClick={() => {
-                      setCurrent(index);
                       dispatch(setCurrentSongId(item?.id));
+                      dispatch(setSongsArray(playlistData1?.data?.songs));
+                      setCurrent(index);
                       
                     }}>
                       <SongCard
