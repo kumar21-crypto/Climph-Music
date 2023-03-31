@@ -34,7 +34,7 @@ export const endpoints = {
 export const fetchDataFromApi = async (endpoint) => {
 
     endpoint = endpoints['homeData'];
-    const { data } = await axios.get(`${BASE_URL}${endpoint}${API_STRING}`,{
+    const { data } = await axios.get(`${CORS_URL}${BASE_URL}${endpoint}${API_STRING}`,{
       headers:{
          "Access-Control-Allow-Headers":"*",
       }
@@ -44,7 +44,7 @@ export const fetchDataFromApi = async (endpoint) => {
 }
 
 export const fetchAlbumData = async (id) => {
-   const { data } = await axios.get(`${BASE_URL}${endpoints['albumDetails']}${BASE_ALBUM_ID}${id}${API_STRING}`,{
+   const { data } = await axios.get(`${CORS_URL}${BASE_URL}${endpoints['albumDetails']}${BASE_ALBUM_ID}${id}${API_STRING}`,{
       headers:{
          "Access-Control-Allow-Headers":"*",
       }
@@ -53,7 +53,7 @@ export const fetchAlbumData = async (id) => {
 }
 
 export const fetchPlaylistData = async (id) => {
-   const { data } = await axios.get(`${BASE_URL}${endpoints['playlistDetails']}${BASE_PLAYLIST_ID}${id}${API_STRING}`,{
+   const { data } = await axios.get(`${CORS_URL}${BASE_URL}${endpoints['playlistDetails']}${BASE_PLAYLIST_ID}${id}${API_STRING}`,{
       headers:{
          "Access-Control-Allow-Headers":"*",
       }
@@ -91,6 +91,6 @@ export const fetchDetailDataFromApi = async (link) => {
  }
 
  export const searchByQuerySaavn = async (query) => {
-   const {data} = await axios.get(`${BASE_URL}${endpoints['getResults']}${SEARCH_API_STRING}${query}`);
+   const {data} = await axios.get(`${CORS_URL}${BASE_URL}${endpoints['getResults']}${SEARCH_API_STRING}${query}`);
    return data;
 }
