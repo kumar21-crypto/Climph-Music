@@ -9,6 +9,7 @@ import { Switch } from '@mui/material';
 import { RxDotsVertical } from 'react-icons/rx';
 import AppBar from '@mui/material/AppBar';
 import { FaPlay } from 'react-icons/fa';
+import Skeleton from '@mui/material/Skeleton';
 
 const AudioPlayer = () => {
 
@@ -53,6 +54,7 @@ const AudioPlayer = () => {
 
           </div>
 
+          <Skeleton sx={{bgcolor:'#ABB2B9'}} variant="rectangular" width={210} height={118} />
     
           {/* <div className='w-[50px] h-[50px]'>
           <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_fmFSzb.json"  background="transparent"  speed="1"    loop  autoplay></lottie-player>

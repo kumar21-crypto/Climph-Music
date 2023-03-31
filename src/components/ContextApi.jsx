@@ -3,6 +3,10 @@ import {fetchDataFromApi} from '../components/Api'
 
 export const Context = createContext();
 
+const delay = (ms) => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+
 export const AppContext = (props) =>{
 
     const [loading, setloading] = useState(false);
@@ -15,7 +19,6 @@ export const AppContext = (props) =>{
     }, [selectCategory]);
 
     const fetchSelectQueryData = (query) =>{
-        setloading(true);
         fetchDataFromApi(`${query}`).then((res)=>{
             // console.log(res);
             setsearchResults(res);

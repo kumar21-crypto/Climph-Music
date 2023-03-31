@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState,useRef } from 'react'
-import { Context } from '../components/ContextApi'
+import { Context } from '../components/ContextApi';
 import AlbumCard from '../components/AlbumCard';
 import TopPicks from '../AlbumFetch/TopPicks';
 import ArtistCard from '../components/ArtistCard';

@@ -141,7 +141,7 @@ const MiniPlayerCard = ({ data, i }) => {
       <div className='h-1 w-full  ml-2 flex items-center mr-2'>
         <span className='ml-4 text-white text-md'>{Math.floor(currentSongTime / 60)}:{currentSongTime % 60 < 10 ? 0 : ""}{currentSongTime % 60}</span>
         <input className='w-full ml-2 mr-2 h-full outline-none' type='range' min={0} value={currentSongTime} max={duration} />
-        <span className='mr-2 text-white text-md'>{Math.floor(duration / 60)}:{duration % 60}</span>
+        <span className='mr-2 text-white text-md'>{Math.floor(duration / 60)}:{duration % 60}{duration % 60 < 10 ? 0 : ""}</span>
       </div>
 
       <motion.div className='flex flex-row h-full w-full   rounded-lg' >
