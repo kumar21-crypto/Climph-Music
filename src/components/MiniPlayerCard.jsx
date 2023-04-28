@@ -180,6 +180,7 @@ const MiniPlayerCard = ({ data, i }) => {
                   currentAudio.play();
 
                 }
+               
 
               }
 

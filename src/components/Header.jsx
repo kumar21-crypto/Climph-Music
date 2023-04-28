@@ -18,6 +18,7 @@ import { MdPersonAddAlt1, MdLogout } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { searchByQuerySaavn } from "../components/Api";
 import { setSuggestionArray, setSuggestionOpenorNot, setSuggestionLoader } from '../components/Slices/SuggestionSlice';
+import SearchSugesstion from "./HomePart/SearchSugesstion";
 
 
 const Header = () => {
@@ -47,20 +48,21 @@ const Header = () => {
     setsearchQuery(event.target.value);
   };
 
-  const handleOnSearchFocus = (event) = {
-    
-  }
 
-  // useEffect(() => {
-  //   if (searchQuery != null) {
-  //     // jio saavn
-      
-  //     searchByQuerySaavn(`${searchQuery}`).then((res) => {
-  //       dispatch(setSuggestionArray(res?.results));
-  //       dispatch(setSuggestionLoader(true));
-  //     });
-  //   }
-  // }, [searchQuery]);
+
+  useEffect(() => {
+    if (searchQuery != null) {
+      fecthSuggestion(searchQuery);
+    }
+  }, [searchQuery]);
+
+  
+  const fecthSuggestion = (query) => {
+    searchByQuerySaavn(`${searchQuery}`).then((res) => {
+      dispatch(setSuggestionArray(res?.results));
+    });
+
+  }
 
   const searchQueryHandler = (event) => {
     if (event.key === "Enter") {
@@ -83,7 +85,7 @@ const Header = () => {
   return (
     <Box sx={{ flexGrow: 1, marginBottom: 3 }}>
       <AppBar position="fixed">
-        <div className=" h-[8vh] bg-[black] w-full flex flex-grow">
+        <div className=" h-[8vh] bg-[#5f4b4b] w-full flex flex-grow">
           <div className="w-[30%] h-full flex justify-start pl-3 items-center ">
             <span className="text-white text-md font-bold sm:text-lg md:text-xl">
               Climph Music
@@ -103,10 +105,10 @@ const Header = () => {
                     onChange={handleChange}
                     onKeyDown={searchQueryHandler}
                     onFocus={()=>{
-                      // dispatch(setSuggestionOpenorNot(true));
+                      dispatch(setSuggestionOpenorNot(true));
                     }}
                     onBlur={()=>{
-                      // dispatch(setSuggestionOpenorNot(false));
+                      dispatch(setSuggestionOpenorNot(false));
                     }}
                   />
                 ) : (

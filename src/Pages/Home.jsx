@@ -22,9 +22,6 @@ const Home = ({ children }) => {
         
       }, [])
 
-    
-      
-    // const { showMiniPlayer} = useContext(AlbumDetailContext);
 
 
     return (

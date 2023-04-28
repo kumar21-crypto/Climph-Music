@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const suggestionSlice = createSlice({
+  
+   
   name: "suggestion",
   initialState: {
     suggestionArray: "",
