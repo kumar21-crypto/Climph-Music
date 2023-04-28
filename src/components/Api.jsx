@@ -11,7 +11,7 @@ const BASE_SONG_DETAIL_URL = "https://saavn.me/songs?link=";
 // https://climph-music-api.vercel.app/
 const BASE_ALBUM_ID = "&cc=in&albumid=";
 const BASE_PLAYLIST_ID = "&cc=in&listid=";
-const CORS_URL = "";
+const CORS_URL = "https://proxy.cors.sh/";
 // const CORS_URL = "https://cors-anywhere.herokuapp.com/";
 
 export const endpoints = {

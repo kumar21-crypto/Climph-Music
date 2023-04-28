@@ -85,7 +85,7 @@ const Header = () => {
   return (
     <Box sx={{ flexGrow: 1, marginBottom: 3 }}>
       <AppBar position="fixed">
-        <div className=" h-[8vh] bg-[#5f4b4b] w-full flex flex-grow">
+        <div className=" h-[8vh] bg-[black] w-full flex flex-grow">
           <div className="w-[30%] h-full flex justify-start pl-3 items-center ">
             <span className="text-white text-md font-bold sm:text-lg md:text-xl">
               Climph Music
