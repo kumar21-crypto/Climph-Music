@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 import { useState, useEffect, createContext } from 'react';
 import { fetchDetailDataFromApi, fetchArtistDetailById, fetchPlaylistByID, fetchSongDetailDataByLink,fetchAlbumData,fetchPlaylistData } from '../components/Api';
 import SongCard from '../AlbumFetch/SongCard';

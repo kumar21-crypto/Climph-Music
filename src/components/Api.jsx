@@ -8,11 +8,13 @@ const BASE_ARTIST_DETAIL_URL = "https://saavn.me/artists?id=";
 const BASE_PLAYLIST_DETAIL_URL = "https://saavn.me/playlists?id=";
 const BASE_SEARCH_ALL_URL = "https://saavn.me/search/all?query=";
 const BASE_SONG_DETAIL_URL = "https://saavn.me/songs?link=";
+const ARTIST_SAAVAN_DETAIL_URL = "&type=artist&p=0&n_song=50&n_album=50&sub_type=&category=&sort_order=&includeMetaTags=0&ctx=wap6dot0&api_version=4&_format=json&_marker=0";
 // https://climph-music-api.vercel.app/
 const BASE_ALBUM_ID = "&cc=in&albumid=";
 const BASE_PLAYLIST_ID = "&cc=in&listid=";
-const CORS_URL = "https://proxy.cors.sh/";
-// const CORS_URL = "https://cors-anywhere.herokuapp.com/";
+const ARTISTS_TOKEN = "&token=";
+// const CORS_URL = "https://proxy.cors.sh/";
+const CORS_URL = "https://corsproxy.io/?";
 
 export const endpoints = {
     'homeData': '__call=webapi.getLaunchData',
@@ -94,5 +96,10 @@ export const fetchDetailDataFromApi = async (link) => {
 
  export const searchByQuerySaavn = async (query) => {
    const {data} = await axios.get(`${CORS_URL}${BASE_URL}${endpoints['getResults']}${SEARCH_API_STRING}${query}`);
+   return data;
+}
+
+export const fetchArtistSaavanDetail = async (token) => {
+   const {data} = await axios.get(`${CORS_URL}${BASE_URL}${endpoints['fromToken']}${ARTISTS_TOKEN}${token}${ARTIST_SAAVAN_DETAIL_URL}`);
    return data;
 }

@@ -17,6 +17,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import BottomMobileNav from './components/BottomNav/BottomMobileNav'
 import AudioPlayer from './Player/AudioPlayer'
 import SearchSugesstion from './components/HomePart/SearchSugesstion'
+import ArtistDetail from './Pages/ArtistDetail'
 
 
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
           <Route path='/albumdetail' element={<AlbumDetail />} />
           <Route path='/searchresult' element={<SearchResult />} />
           <Route path='/audioplayer' element={<AudioPlayer />} />
+          <Route path='/artistdetail' element={<ArtistDetail/>} />
         </Routes>
         
      </MainContainer>

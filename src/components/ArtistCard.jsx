@@ -1,12 +1,22 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect,useState,useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import {fetchArtistSaavanDetail} from '../components/Api';
 
 
-
-const ArtistCard = ({ album }) => {
+const ArtistCard = ({ album,token }) => {
 
   const [color, setcolor] = useState("#000");
+  const [artistResult, setartistResult] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchArtistSaavanDetail(token).then((res) => {
+      setartistResult(res);
+      
+    })
+  }, [])
+  
+
 
   return (
 
@@ -23,7 +33,7 @@ const ArtistCard = ({ album }) => {
           src={album?.image}
           loading="lazy"
           onClick={()=>{
-            navigate('/albumdetail',{state:{data:album}});
+            navigate('/artistdetail',{state:{data:artistResult}});
           }}
         />
         
