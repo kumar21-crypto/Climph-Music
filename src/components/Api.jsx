@@ -15,7 +15,7 @@ const BASE_PLAYLIST_ID = "&cc=in&listid=";
 const ARTISTS_TOKEN = "&token=";
 // const CORS_URL = "https://proxy.cors.sh/";
 const CORS_URL = "https://corsproxy.io/?";
-const ALLOW_ORIGIN = "https://cors-anywhere.herokuapp.com/corsdemo/";
+const ALLOW_ORIGIN = "https://cors-anywhere.herokuapp.com/";
 
 export const endpoints = {
     'homeData': '__call=webapi.getLaunchData',
