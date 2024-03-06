@@ -42,7 +42,7 @@ export const fetchDataFromApi = async (endpoint) => {
     const { data } = await axios.get(`${BASE_URL}${endpoint}${API_STRING}`,{
       headers:{
           'Access-Control-Allow-Origin':'https://tools-azure.jiosaavn.com',
-          'Access-Control-Allow-Credentials':'true',
+          'Access-Control-Allow-Credentials': true,
       }
     });
 
@@ -53,7 +53,8 @@ export const fetchAlbumData = async (id) => {
    const { data } = await axios.get(`${BASE_URL}${endpoints['albumDetails']}${BASE_ALBUM_ID}${id}${API_STRING}`,{
       headers:{
           'Access-Control-Allow-Origin':'https://tools-azure.jiosaavn.com',
-          'Access-Control-Allow-Credentials':'true',
+          'Access-Control-Allow-Credentials': true,
+          
       }
    });
     return data;
@@ -62,8 +63,8 @@ export const fetchAlbumData = async (id) => {
 export const fetchPlaylistData = async (id) => {
    const { data } = await axios.get(`${BASE_URL}${endpoints['playlistDetails']}${BASE_PLAYLIST_ID}${id}${API_STRING}`,{
       headers:{
-          'Access-Control-Allow-Origin':'https://tools-azure.jiosaavn.com',
-          'Access-Control-Allow-Credentials':'true',
+          'Access-Control-Allow-Origin':'https://tools-azure.jiosaavn.com'
+          'Access-Control-Allow-Credentials': true,
       }
    });
     return data;
