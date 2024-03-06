@@ -63,7 +63,7 @@ export const fetchAlbumData = async (id) => {
 export const fetchPlaylistData = async (id) => {
    const { data } = await axios.get(`${BASE_URL}${endpoints['playlistDetails']}${BASE_PLAYLIST_ID}${id}${API_STRING}`,{
       headers:{
-          'Access-Control-Allow-Origin':'https://tools-azure.jiosaavn.com'
+          'Access-Control-Allow-Origin':'https://tools-azure.jiosaavn.com',
           'Access-Control-Allow-Credentials': true,
       }
    });
