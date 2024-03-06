@@ -95,11 +95,11 @@ export const fetchDetailDataFromApi = async (link) => {
  }
 
  export const searchByQuerySaavn = async (query) => {
-   const {data} = await axios.get(`${CORS_URL}${BASE_URL}${endpoints['getResults']}${SEARCH_API_STRING}${query}`);
+   const {data} = await axios.get(`${BASE_URL}${endpoints['getResults']}${SEARCH_API_STRING}${query}`);
    return data;
 }
 
 export const fetchArtistSaavanDetail = async (token) => {
-   const {data} = await axios.get(`${CORS_URL}${BASE_URL}${endpoints['fromToken']}${ARTISTS_TOKEN}${token}${ARTIST_SAAVAN_DETAIL_URL}`);
+   const {data} = await axios.get(`${BASE_URL}${endpoints['fromToken']}${ARTISTS_TOKEN}${token}${ARTIST_SAAVAN_DETAIL_URL}`);
    return data;
 }
