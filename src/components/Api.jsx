@@ -3,11 +3,11 @@ import axios from "axios"
 const BASE_URL = "https://www.jiosaavn.com/api.php?";
 const API_STRING = "&_format=json&_marker=0&api_version=4&ctx=web6dot0";
 const SEARCH_API_STRING = "&_format=json&_marker=0&api_version=4&ctx=web6dot0&q=";
-const BASE_DETAIL_URL = "https://saavn.me/albums?link=";
-const BASE_ARTIST_DETAIL_URL = "https://saavn.me/artists?id=";
-const BASE_PLAYLIST_DETAIL_URL = "https://saavn.me/playlists?id=";
-const BASE_SEARCH_ALL_URL = "https://saavn.me/search/all?query=";
-const BASE_SONG_DETAIL_URL = "https://saavn.me/songs?link=";
+const BASE_DETAIL_URL = "https://saavn.dev/albums?link=";
+const BASE_ARTIST_DETAIL_URL = "https://saavn.dev/artists?id=";
+const BASE_PLAYLIST_DETAIL_URL = "https://saavn.dev/playlists?id=";
+const BASE_SEARCH_ALL_URL = "https://saavn.dev/search/all?query=";
+const BASE_SONG_DETAIL_URL = "https://saavn.dev/songs?link=";
 const ARTIST_SAAVAN_DETAIL_URL = "&type=artist&p=0&n_song=50&n_album=50&sub_type=&category=&sort_order=&includeMetaTags=0&ctx=wap6dot0&api_version=4&_format=json&_marker=0";
 // https://climph-music-api.vercel.app/
 const BASE_ALBUM_ID = "&cc=in&albumid=";
@@ -41,7 +41,8 @@ export const fetchDataFromApi = async (endpoint) => {
     endpoint = endpoints['homeData'];
     const { data } = await axios.get(`${BASE_URL}${endpoint}${API_STRING}`,{
       headers:{
-         "Access-Control-Allow-Headers":`${ALLOW_ORIGIN}`,
+          'Access-Control-Allow-Origin':'https://tools-azure.jiosaavn.com',
+          'Access-Control-Allow-Credentials':'true',
       }
     });
 
@@ -51,7 +52,8 @@ export const fetchDataFromApi = async (endpoint) => {
 export const fetchAlbumData = async (id) => {
    const { data } = await axios.get(`${BASE_URL}${endpoints['albumDetails']}${BASE_ALBUM_ID}${id}${API_STRING}`,{
       headers:{
-         "Access-Control-Allow-Headers":`${ALLOW_ORIGIN}`,
+          'Access-Control-Allow-Origin':'https://tools-azure.jiosaavn.com',
+          'Access-Control-Allow-Credentials':'true',
       }
    });
     return data;
@@ -60,7 +62,8 @@ export const fetchAlbumData = async (id) => {
 export const fetchPlaylistData = async (id) => {
    const { data } = await axios.get(`${BASE_URL}${endpoints['playlistDetails']}${BASE_PLAYLIST_ID}${id}${API_STRING}`,{
       headers:{
-         "Access-Control-Allow-Headers":`${ALLOW_ORIGIN}`,
+          'Access-Control-Allow-Origin':'https://tools-azure.jiosaavn.com',
+          'Access-Control-Allow-Credentials':'true',
       }
    });
     return data;
