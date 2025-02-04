@@ -39,7 +39,7 @@ export const endpoints = {
 export const fetchDataFromApi = async (endpoint) => {
 
     endpoint = endpoints['homeData'];
-    const { data } = await axios.get(`${BASE_URL}${endpoint}${API_STRING}`,{
+    const { data } = await axios.get(`${ALLOW_ORIGIN}${BASE_URL}${endpoint}${API_STRING}`,{
       headers:{
           // 'Access-Control-Allow-Origin':'https://climphmusic.netlify.app',
           // 'Access-Control-Allow-Credentials': true,
@@ -50,7 +50,7 @@ export const fetchDataFromApi = async (endpoint) => {
 }
 
 export const fetchAlbumData = async (id) => {
-   const { data } = await axios.get(`${BASE_URL}${endpoints['albumDetails']}${BASE_ALBUM_ID}${id}${API_STRING}`,{
+   const { data } = await axios.get(`${ALLOW_ORIGIN}${BASE_URL}${endpoints['albumDetails']}${BASE_ALBUM_ID}${id}${API_STRING}`,{
       headers:{
 
           
@@ -60,7 +60,7 @@ export const fetchAlbumData = async (id) => {
 }
 
 export const fetchPlaylistData = async (id) => {
-   const { data } = await axios.get(`${BASE_URL}${endpoints['playlistDetails']}${BASE_PLAYLIST_ID}${id}${API_STRING}`,{
+   const { data } = await axios.get(`${ALLOW_ORIGIN}${BASE_URL}${endpoints['playlistDetails']}${BASE_PLAYLIST_ID}${id}${API_STRING}`,{
       headers:{
          
       }
