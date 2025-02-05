@@ -40,7 +40,7 @@ export const endpoints = {
 export const fetchDataFromApi = async (endpoint) => {
 
     endpoint = endpoints['homeData'];
-    const { data } = await axios.get(`${THINGS_CORS}${BASE_URL}${endpoint}${API_STRING}`,{
+    const { data } = await axios.get(`${ALLOW_ORIGIN}${BASE_URL}${endpoint}${API_STRING}`,{
       headers:{
           // 'Access-Control-Allow-Origin':'https://climphmusic.netlify.app',
           // 'Access-Control-Allow-Credentials': true,
@@ -51,7 +51,7 @@ export const fetchDataFromApi = async (endpoint) => {
 }
 
 export const fetchAlbumData = async (id) => {
-   const { data } = await axios.get(`${THINGS_CORS}${BASE_URL}${endpoints['albumDetails']}${BASE_ALBUM_ID}${id}${API_STRING}`,{
+   const { data } = await axios.get(`${ALLOW_ORIGIN}${BASE_URL}${endpoints['albumDetails']}${BASE_ALBUM_ID}${id}${API_STRING}`,{
       headers:{
 
           
@@ -61,7 +61,7 @@ export const fetchAlbumData = async (id) => {
 }
 
 export const fetchPlaylistData = async (id) => {
-   const { data } = await axios.get(`${THINGS_CORS}${BASE_URL}${endpoints['playlistDetails']}${BASE_PLAYLIST_ID}${id}${API_STRING}`,{
+   const { data } = await axios.get(`${ALLOW_ORIGIN}${BASE_URL}${endpoints['playlistDetails']}${BASE_PLAYLIST_ID}${id}${API_STRING}`,{
       headers:{
          
       }
@@ -73,37 +73,37 @@ export const fetchPlaylistData = async (id) => {
 
 export const fetchDetailDataFromApi = async (link) => {
 
-    const {data} = await axios.get(`${BASE_DETAIL_URL}${link}`);
+    const {data} = await axios.get(`${ALLOW_ORIGIN}${BASE_DETAIL_URL}${link}`);
     return data;
  }
 
  export const fetchArtistDetailById = async (id) => {
 
-    const {data} = await axios.get(`${BASE_ARTIST_DETAIL_URL}${id}`);
+    const {data} = await axios.get(`${ALLOW_ORIGIN}${BASE_ARTIST_DETAIL_URL}${id}`);
     return data;
  }
 
  export const fetchPlaylistByID = async (id) => {
-    const {data} = await axios.get(`${BASE_PLAYLIST_DETAIL_URL}${id}`);
+    const {data} = await axios.get(`${ALLOW_ORIGIN}${BASE_PLAYLIST_DETAIL_URL}${id}`);
     return data;
  }
 
  export const searchByQuery = async (query) => {
-    const {data} = await axios.get(`${BASE_SEARCH_ALL_URL}${query}`);
+    const {data} = await axios.get(`${ALLOW_ORIGIN}${BASE_SEARCH_ALL_URL}${query}`);
     return data;
  }
 
  export const fetchSongDetailDataByLink = async (link) => {
-   const {data} = await axios.get(`${BASE_SONG_DETAIL_URL}${link}`);
+   const {data} = await axios.get(`${ALLOW_ORIGIN}${BASE_SONG_DETAIL_URL}${link}`);
    return data;
  }
 
  export const searchByQuerySaavn = async (query) => {
-   const {data} = await axios.get(`${BASE_URL}${endpoints['getResults']}${SEARCH_API_STRING}${query}`);
+   const {data} = await axios.get(`${ALLOW_ORIGIN}${BASE_URL}${endpoints['getResults']}${SEARCH_API_STRING}${query}`);
    return data;
 }
 
 export const fetchArtistSaavanDetail = async (token) => {
-   const {data} = await axios.get(`${BASE_URL}${endpoints['fromToken']}${ARTISTS_TOKEN}${token}${ARTIST_SAAVAN_DETAIL_URL}`);
+   const {data} = await axios.get(`${ALLOW_ORIGIN}${BASE_URL}${endpoints['fromToken']}${ARTISTS_TOKEN}${token}${ARTIST_SAAVAN_DETAIL_URL}`);
    return data;
 }
